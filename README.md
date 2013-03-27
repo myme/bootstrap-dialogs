@@ -69,6 +69,21 @@ Upgrade the distribution files
 
 In order to upgrade the distribution files bundled in the repo, run `npm run-script dist`.
 
+Release notes
+-------------
+
+### v0.0.2
+
+ * Add Bootstrap and jQuery as component dependencies.
+ * Submit prompt on Return keypress.
+ * Give prompt input focus.
+ * Wrap titles in h3.
+ * Add close button by default.
+
+### v0.0.1
+
+ * Initial release.
+
 License
 -------
 
