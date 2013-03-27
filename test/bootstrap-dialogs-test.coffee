@@ -125,6 +125,18 @@ buster.testCase 'Bootstrap.Dialog',
       dialog()
       assert.calledOnceWith(spy, backdrop: 'static')
 
+    '.resolve closes modal': ->
+      promise = dialog()
+      spy = @spy($.fn, 'modal')
+      promise.resolve()
+      assert.calledOnceWith(spy, 'hide')
+
+    '.reject closes modal': ->
+      promise = dialog()
+      spy = @spy($.fn, 'modal')
+      promise.reject()
+      assert.calledOnceWith(spy, 'hide')
+
   'prompt':
 
     'is a function': ->
