@@ -64,6 +64,12 @@ buster.testCase 'Bootstrap.Dialog',
     'promise holds reference to modal': ->
       assert.tagName(dialog().el, 'div')
 
+    'element has modal class': ->
+      assert.className(dialog().el, 'modal')
+
+    'adds title to modal element': ->
+      assert.match(dialog('Foobar').el, innerHTML: 'Foobar')
+
   'prompt':
 
     'is a function': ->

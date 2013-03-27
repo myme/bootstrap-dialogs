@@ -10,9 +10,21 @@ exports = Bootstrap.Dialogs =
   confirm: (title) ->
     exports.dialog(title)
 
-  dialog: ->
+  dialog: (title) ->
+    html = """
+      <div class="modal hide fade">
+        <div class="modal-header">
+          #{title}
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    """
+
     promise = $.Deferred()
-    promise.el = $('<div>')[0]
+    promise.el = $(html)[0]
     promise
 
   prompt: (title) ->
