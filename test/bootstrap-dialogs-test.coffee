@@ -164,9 +164,15 @@ buster.testCase 'Bootstrap.Dialog',
       prompt()
       assert.calledOnceWith(@dialogSpy, 'Please enter a value')
 
+    'does not turn undefined body into "undefined" string': ->
+      prompt()
+      assert.calledOnceWith(@dialogSpy, 'Please enter a value')
+      refute.match(@dialogSpy.args[0][1], 'undefined')
+
     'calls .dialog with title and body': ->
       prompt('Title', 'Body')
-      assert.calledOnceWith(@dialogSpy, 'Title', 'Body')
+      assert.calledOnceWith(@dialogSpy, 'Title')
+      assert.match(@dialogSpy.args[0][1], 'Body')
 
     'returns same as .dialog': ->
       assert(@dialogSpy.returned(prompt()))
@@ -176,6 +182,10 @@ buster.testCase 'Bootstrap.Dialog',
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Cancel')
       assert.match($buttons.text(), 'Ok')
+
+    'creates modal input field': ->
+      $input = prompt().$el.find('input')
+      assert.equals($input.length, 1)
 
     'clicking "Ok" button triggers .resolve': ->
       promise = prompt()

@@ -51,6 +51,11 @@ exports = Bootstrap.Dialogs =
     promise
 
   prompt: (title='Please enter a value', body) ->
+    body or= ''
+    body = """
+      #{body}
+      <input type="text">
+    """
     promise = exports.dialog(title, body, [
       [ 'Cancel', -> promise.reject() ]
       [ 'Ok', -> promise.resolve() ]
