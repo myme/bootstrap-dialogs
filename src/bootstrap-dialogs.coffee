@@ -10,9 +10,9 @@ exports = Bootstrap.Dialogs =
     ])
 
   confirm: (title='Please confirm', body) ->
-    exports.dialog(title, body, [
-      'Cancel'
-      'Ok'
+    promise = exports.dialog(title, body, [
+      [ 'Cancel', -> promise.reject() ]
+      [ 'Ok', -> promise.resolve() ]
     ])
 
   dialog: (title, body, buttons=[]) ->
