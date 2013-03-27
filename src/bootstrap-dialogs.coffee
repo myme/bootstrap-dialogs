@@ -4,10 +4,10 @@ Bootstrap = this.Bootstrap or= {}
 
 exports = Bootstrap.Dialogs =
 
-  alert: (title) ->
+  alert: (title='Alert') ->
     exports.dialog(title)
 
-  confirm: (title) ->
+  confirm: (title='Please confirm') ->
     exports.dialog(title)
 
   dialog: (title) ->
@@ -31,5 +31,5 @@ exports = Bootstrap.Dialogs =
 
     promise
 
-  prompt: (title) ->
+  prompt: (title='Please enter a value') ->
     exports.dialog(title)

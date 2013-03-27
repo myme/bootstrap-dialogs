@@ -18,9 +18,9 @@ buster.testCase 'Bootstrap.Dialog',
     'is a function': ->
       assert.isFunction(alert)
 
-    'calls .dialog': ->
+    'calls .dialog with default title': ->
       alert()
-      assert.calledOnce(@dialogSpy)
+      assert.calledOnceWith(@dialogSpy, 'Alert')
 
     'calls .dialog with title': ->
       alert('Foobar')
@@ -35,9 +35,9 @@ buster.testCase 'Bootstrap.Dialog',
     'is a function': ->
       assert.isFunction(confirm)
 
-    'calls .dialog': ->
+    'calls .dialog with default title': ->
       confirm()
-      assert.calledOnce(@dialogSpy)
+      assert.calledOnceWith(@dialogSpy, 'Please confirm')
 
     'calls .dialog with title': ->
       confirm('Foobar')
@@ -84,9 +84,9 @@ buster.testCase 'Bootstrap.Dialog',
     'is a function': ->
       assert.isFunction(prompt)
 
-    'calls .dialog': ->
+    'calls .dialog with default title': ->
       prompt()
-      assert.calledOnce(@dialogSpy)
+      assert.calledOnceWith(@dialogSpy, 'Please enter a value')
 
     'calls .dialog with title': ->
       prompt('Foobar')
