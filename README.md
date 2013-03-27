@@ -40,6 +40,6 @@ License
 -------
 
 Distrubuted under the [ISC][ISC] license.  Please refer to the
-[LICENSE](LICENSE).
+[LICENSE](LICENSE-ISC).
 
 [ISC]: http://en.wikipedia.org/wiki/ISC_license
