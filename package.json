@@ -15,7 +15,10 @@
     "dialog",
     "modal"
   ],
-  "author": "Martin Øinæs Myrseth",
+  "author": {
+    "name": "Martin Øinæs Myrseth",
+    "email": "myrseth@gmail.com"
+  },
   "license": "ISC",
   "devDependencies": {
     "bower": "~0.8.5",

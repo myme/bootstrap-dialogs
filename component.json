@@ -2,7 +2,10 @@
   "name": "bootstrap-dialogs",
   "description": "Twitter Bootstrap Modal Dialogs",
   "version": "0.0.1",
-  "author": "Martin Øinæs Myrseth",
+  "author": {
+    "name": "Martin Øinæs Myrseth",
+    "email": "myrseth@gmail.com"
+  },
   "license": "ISC",
   "repository": "git://github.com/myme/bootstrap-dialogs.git",
   "ignore": [
