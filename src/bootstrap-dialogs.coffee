@@ -33,12 +33,11 @@ exports = Bootstrap.Dialogs =
       $btn.click(handler) if handler instanceof Function
       $btn
 
-    $el = $('<div class="modal hide fade">')
-      .html([
-        $('<div class="modal-header">').html(title)
-        body
-        $('<div class="modal-footer">').html(buttons)
-      ])
+    $el = $('<div class="modal hide fade">').html([
+      $('<div class="modal-header">').html(title)
+      body
+      $('<div class="modal-footer">').html(buttons)
+    ])
 
     promise = $.Deferred()
     promise.el = $el[0]
@@ -49,7 +48,6 @@ exports = Bootstrap.Dialogs =
       $el.remove()
 
     $el.modal(backdrop: 'static')
-
     promise
 
   prompt: (title='Please enter a value', body) ->
