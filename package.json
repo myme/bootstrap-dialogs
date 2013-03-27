@@ -1,11 +1,12 @@
 {
   "name": "bootstrap-dialogs",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Twitter Bootstrap Modal Dialogs",
   "main": "index.js",
   "scripts": {
+    "dist": "grunt dist",
     "prepublish": "bower install",
-    "start": "grunt start",
+    "start": "grunt --force start",
     "test": "grunt test"
   },
   "repository": "git://github.com/myme/bootstrap-dialogs.git",
@@ -24,7 +25,9 @@
     "grunt-coffeelint": "0.0.6",
     "grunt-contrib-coffee": "~0.6.4",
     "grunt-contrib-connect": "~0.2.0",
+    "grunt-contrib-copy": "~0.4.1",
     "grunt-contrib-jshint": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.0",
     "grunt-contrib-watch": "~0.3.1",
     "phantomjs": "~1.9.0-0"
   }
