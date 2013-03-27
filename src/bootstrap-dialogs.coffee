@@ -31,13 +31,13 @@ exports = Bootstrap.Dialogs =
         handler = button[1]
       $btn = $("""<button class="btn">#{text}</button>""")
       $btn.click(handler) if handler instanceof Function
-      $btn[0]
+      $btn
 
     $el = $('<div class="modal hide fade">')
       .html([
-        $('<div class="modal-header">').html(title)[0]
+        $('<div class="modal-header">').html(title)
         body
-        $('<div class="modal-footer">').html(buttons)[0]
+        $('<div class="modal-footer">').html(buttons)
       ])
 
     promise = $.Deferred()
