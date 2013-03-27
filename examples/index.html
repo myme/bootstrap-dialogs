@@ -51,7 +51,7 @@
 
       $('.show-confirm').click(function () {
         Bootstrap.Dialogs
-          .confirm('Can you confirm this?')
+          .confirm('Please confirm', 'Can you confirm this?')
           .done(function () {
             showSuccess('You confirmed \\:D/');
           })
@@ -64,7 +64,11 @@
         Bootstrap.Dialogs
           .prompt('Please provide some input')
           .done(function (text) {
-            showSuccess('You typed: ' + text);
+            if (text) {
+              showSuccess('You typed: ' + text);
+            } else {
+              showFailure("You didn't type anything");
+            }
           })
           .fail(function () {
             showFailure('Input cancelled');
