@@ -1,9 +1,15 @@
 Bootstrap = this.Bootstrap or= {}
 
-Bootstrap.Dialog =
 
-  alert: ->
+exports = Bootstrap.Dialog =
 
-  confirm: ->
+  alert: (title) ->
+    exports.dialog(title)
 
-  prompt: ->
+  confirm: (title) ->
+    exports.dialog(title)
+
+  dialog: ->
+
+  prompt: (title) ->
+    exports.dialog(title)
