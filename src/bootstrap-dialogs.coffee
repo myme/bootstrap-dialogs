@@ -50,11 +50,9 @@ exports = Bootstrap.Dialogs =
     $el.modal(backdrop: 'static')
     promise
 
-  prompt: (title='Please enter a value', body) ->
+  prompt: (title='Please enter a value', body='') ->
     $input = $('<input type="text">')
-    body = if body then [ body ] else []
-    body.push($input)
-    promise = exports.dialog(title, body, [
+    promise = exports.dialog(title, [ body, $input ], [
       [ 'Cancel', -> promise.reject() ]
       [ 'Ok', -> promise.resolve($input.val()) ]
     ])
