@@ -61,3 +61,7 @@ exports = Bootstrap.Dialogs =
       [ 'Cancel', reject ]
       [ 'Ok', resolve ]
     ])
+
+    $input.focus()
+    promise.$input = $input
+    promise

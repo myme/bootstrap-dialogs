@@ -210,3 +210,8 @@ buster.testCase 'Bootstrap.Dialog',
         .val('foobar')
         .trigger(event)
       assert.calledOnceWith(spy, 'foobar')
+
+    'input has focus': ->
+      spy = @spy($.fn, 'focus')
+      assert.calledOn(spy, prompt().$input)
+      assert.callOrder(@dialogSpy, spy)
