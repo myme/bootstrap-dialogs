@@ -149,6 +149,12 @@ buster.testCase 'Bootstrap.Dialog',
       promise.reject()
       assert.calledOnceWith(spy, 'hide')
 
+    'removes the modal on close': ->
+      promise = dialog()
+      $el = $('<div>').html(promise.el)
+      promise.resolve()
+      assert.equals($el.html(), '')
+
   'prompt':
 
     'is a function': ->
