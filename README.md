@@ -9,6 +9,32 @@ and `window.prompt`, styled and managed by [Twitter Bootstrap][bootstrap].
 
 [bootstrap]: http://twitter.github.com/bootstrap
 
+Usage
+-----
+
+```javascript
+Bootstrap.Dialog.alert('Alert title', 'Alert body')
+  .done(function () {
+    ...
+  });
+
+Bootstrap.Dialog.confirm()
+  .done(function () {
+    ...
+  })
+  .fail(function () {
+    ...
+  });
+
+Bootstrap.Dialog.prompt('What is your name?', 'Please enter your name')
+  .done(function (name) {
+    ...
+  })
+  .fail(function () {
+    ...
+  });
+```
+
 Development
 -----------
 
