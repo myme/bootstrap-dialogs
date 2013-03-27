@@ -15,7 +15,7 @@
     "modal"
   ],
   "author": "Martin Øinæs Myrseth",
-  "license": "BSD",
+  "license": "ISC",
   "devDependencies": {
     "bower": "~0.8.5",
     "buster": "~0.6.12",
