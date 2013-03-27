@@ -61,6 +61,9 @@ buster.testCase 'Bootstrap.Dialog',
     'returns a promise with .fail': ->
       assert.isFunction(dialog().fail)
 
+    'promise holds reference to modal': ->
+      assert.tagName(dialog().el, 'div')
+
   'prompt':
 
     'is a function': ->

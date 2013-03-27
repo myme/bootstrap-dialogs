@@ -11,7 +11,9 @@ exports = Bootstrap.Dialogs =
     exports.dialog(title)
 
   dialog: ->
-    $.Deferred()
+    promise = $.Deferred()
+    promise.el = $('<div>')[0]
+    promise
 
   prompt: (title) ->
     exports.dialog(title)
