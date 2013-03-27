@@ -16,6 +16,8 @@ exports = Bootstrap.Dialogs =
     ])
 
   dialog: (title, body, buttons=[]) ->
+    title = $('<h3>').html(title)
+
     body =
       if body
         $('<div class="modal-body">').html(body)
