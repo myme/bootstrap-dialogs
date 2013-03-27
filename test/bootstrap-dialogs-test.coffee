@@ -22,13 +22,19 @@ buster.testCase 'Bootstrap.Dialog',
       alert()
       assert.calledOnceWith(@dialogSpy, 'Alert')
 
-    'calls .dialog with title': ->
-      alert('Foobar')
-      assert.calledOnceWith(@dialogSpy, 'Foobar')
+    'calls .dialog with title and body': ->
+      alert('Title', 'Body')
+      assert.calledOnceWith(@dialogSpy, 'Title', 'Body')
 
     'returns same as .dialog': ->
       promise = alert()
       assert(@dialogSpy.returned(promise))
+
+    'creates modal with one "Ok" button': ->
+      promise = alert()
+      $btn = promise.$el.find('button')
+      assert.equals($btn.length, 1)
+      assert.equals($btn.text(), 'Ok')
 
   'confirm':
 
@@ -39,13 +45,20 @@ buster.testCase 'Bootstrap.Dialog',
       confirm()
       assert.calledOnceWith(@dialogSpy, 'Please confirm')
 
-    'calls .dialog with title': ->
-      confirm('Foobar')
-      assert.calledOnceWith(@dialogSpy, 'Foobar')
+    'calls .dialog with title and body': ->
+      confirm('Title', 'Body')
+      assert.calledOnceWith(@dialogSpy, 'Title', 'Body')
 
     'returns same as .dialog': ->
       promise = confirm()
       assert(@dialogSpy.returned(promise))
+
+    'creates modal with "Cancel" and "Ok" button': ->
+      promise = confirm()
+      $buttons = promise.$el.find('button')
+      assert.equals($buttons.length, 2)
+      assert.match($buttons.text(), 'Cancel')
+      assert.match($buttons.text(), 'Ok')
 
   'dialog':
 
@@ -74,6 +87,24 @@ buster.testCase 'Bootstrap.Dialog',
     'adds title to modal element': ->
       assert.match(dialog('Foobar').el, innerHTML: 'Foobar')
 
+    'does not add a body if undefined': ->
+      assert.equals(
+        dialog('Title').$el.find('.modal-body').length, 0)
+
+    'adds buttons': ->
+      $el = dialog('Title', 'Body', [
+        'Cancel', 'Ok'
+      ]).$el
+      $buttons = $el.find('button')
+      assert.equals($buttons.length, 2)
+      assert.match($buttons.text(), 'Cancel')
+      assert.match($buttons.text(), 'Ok')
+
+    'adds body to modal element': ->
+      assert.match(
+        dialog('Foo Title', 'Bar Body').el
+        innerHTML: 'Bar Body')
+
     'calls $.fn.modal on proper element': ->
       spy = @spy($.fn, 'modal')
       $el = dialog().$el
@@ -88,10 +119,17 @@ buster.testCase 'Bootstrap.Dialog',
       prompt()
       assert.calledOnceWith(@dialogSpy, 'Please enter a value')
 
-    'calls .dialog with title': ->
-      prompt('Foobar')
-      assert.calledOnceWith(@dialogSpy, 'Foobar')
+    'calls .dialog with title and body': ->
+      prompt('Title', 'Body')
+      assert.calledOnceWith(@dialogSpy, 'Title', 'Body')
 
     'returns same as .dialog': ->
       promise = prompt()
       assert(@dialogSpy.returned(promise))
+
+    'creates modal with "Cancel" and "Ok" buttons': ->
+      promise = prompt()
+      $buttons = promise.$el.find('button')
+      assert.equals($buttons.length, 2)
+      assert.match($buttons.text(), 'Cancel')
+      assert.match($buttons.text(), 'Ok')

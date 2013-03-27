@@ -4,21 +4,36 @@ Bootstrap = this.Bootstrap or= {}
 
 exports = Bootstrap.Dialogs =
 
-  alert: (title='Alert') ->
-    exports.dialog(title)
+  alert: (title='Alert', body) ->
+    exports.dialog(title, body, [
+      'Ok'
+    ])
 
-  confirm: (title='Please confirm') ->
-    exports.dialog(title)
+  confirm: (title='Please confirm', body) ->
+    exports.dialog(title, body, [
+      'Cancel'
+      'Ok'
+    ])
 
-  dialog: (title) ->
+  dialog: (title, body, buttons=[]) ->
+    body =
+      if body
+        """<div class="modal-body">#{body}</div>"""
+      else
+        ''
+
+    buttons = (for button in buttons
+      """<button class="btn">#{button}</button>"""
+    ).join(' ')
+
     $el = $("""
       <div class="modal hide fade">
         <div class="modal-header">
           #{title}
         </div>
-        <div class="modal-body">
-        </div>
+        #{body}
         <div class="modal-footer">
+          #{buttons}
         </div>
       </div>
     """)
@@ -31,5 +46,8 @@ exports = Bootstrap.Dialogs =
 
     promise
 
-  prompt: (title='Please enter a value') ->
-    exports.dialog(title)
+  prompt: (title='Please enter a value', body) ->
+    exports.dialog(title, body, [
+      'Cancel'
+      'Ok'
+    ])
