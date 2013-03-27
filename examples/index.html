@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link
+    rel="stylesheet"
+    href="../components/bootstrap/docs/assets/css/bootstrap.css">
+</head>
+<body>
+  <div class="container">
+    <h3>Dialog Examples</h3>
+    <p class="well">
+      <button class="btn show-alert">Show Alert</button>
+      <button class="btn show-confirm">Show Confirm</button>
+      <button class="btn show-prompt">Show Prompt</button>
+    </p>
+  </div>
+  <script src="../components/jquery/jquery.js"></script>
+  <script src="../components/bootstrap/js/bootstrap-modal.js"></script>
+  <script src="../dist/bootstrap-dialogs.js"></script>
+  <script>
+    $(function () {
+      $('.show-alert').click(function () {
+        Bootstrap.Dialogs.alert();
+      });
+      $('.show-confirm').click(function () {
+        Bootstrap.Dialogs.confirm();
+      });
+      $('.show-prompt').click(function () {
+        Bootstrap.Dialogs.prompt();
+      });
+    });
+  </script>
+</body>
+</html>

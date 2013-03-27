@@ -19,6 +19,9 @@ module.exports = (grunt) ->
       dist: sources
       tests: tests
 
+    connect:
+      examples: {}
+
     jshint:
       assets: 'buster.js'
 
@@ -30,15 +33,17 @@ module.exports = (grunt) ->
           sources
           tests
         ]
-        tasks: 'test'
+        tasks: ['test']
 
   grunt.loadNpmTasks('grunt-buster')
   grunt.loadNpmTasks('grunt-coffeelint')
   grunt.loadNpmTasks('grunt-contrib-coffee')
+  grunt.loadNpmTasks('grunt-contrib-connect')
   grunt.loadNpmTasks('grunt-contrib-jshint')
   grunt.loadNpmTasks('grunt-contrib-watch')
 
   grunt.registerTask('lint', ['coffeelint', 'jshint'])
   grunt.registerTask('build', ['lint', 'coffee'])
+  grunt.registerTask('start', ['connect', 'test', 'watch'])
   grunt.registerTask('test', ['build', 'buster'])
   grunt.registerTask('default', ['test'])
