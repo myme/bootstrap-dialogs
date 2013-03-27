@@ -30,14 +30,14 @@ buster.testCase 'Bootstrap.Dialog',
       assert(@dialogSpy.returned(alert()))
 
     'creates modal with one "Ok" button': ->
-      $btn = alert().$el.find('button')
+      $btn = alert().$el.find('button.btn')
       assert.equals($btn.length, 1)
       assert.equals($btn.text(), 'Ok')
 
     'clicking button triggers .resolve': ->
       promise = alert()
       spy = @spy(promise, 'resolve')
-      promise.$el.find('button').click()
+      promise.$el.find('button.btn').click()
       assert.calledOnce(spy)
 
   'confirm':
@@ -57,7 +57,7 @@ buster.testCase 'Bootstrap.Dialog',
       assert(@dialogSpy.returned(confirm()))
 
     'creates modal with "Cancel" and "Ok" button': ->
-      $buttons = confirm().$el.find('button')
+      $buttons = confirm().$el.find('button.btn')
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Cancel')
       assert.match($buttons.text(), 'Ok')
@@ -71,7 +71,7 @@ buster.testCase 'Bootstrap.Dialog',
     'clicking "Cancel" button triggers .reject': ->
       promise = confirm()
       spy = @spy(promise, 'reject')
-      promise.$el.find('button:contains("Cancel")').click()
+      promise.$el.find('button.btn:contains("Cancel")').click()
       assert.calledOnce(spy)
 
   'dialog':
@@ -109,7 +109,7 @@ buster.testCase 'Bootstrap.Dialog',
       $el = dialog('Title', 'Body', [
         'Cancel', 'Ok'
       ]).$el
-      $buttons = $el.find('button')
+      $buttons = $el.find('button.btn')
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Cancel')
       assert.match($buttons.text(), 'Ok')
@@ -118,7 +118,7 @@ buster.testCase 'Bootstrap.Dialog',
       spy = @spy()
       dialog('Title', 'Body', [[ 'Ok', spy ]])
         .$el
-        .find('button')
+        .find('button.btn')
         .click()
       assert.calledOnce(spy)
 
@@ -155,6 +155,13 @@ buster.testCase 'Bootstrap.Dialog',
       promise.resolve()
       assert.equals($el.html(), '')
 
+    'has close button by default': ->
+      spy = @spy()
+      promise = dialog()
+      promise.fail(spy)
+      promise.$el.find('button.close').click()
+      assert.calledOnce(spy)
+
   'prompt':
 
     'is a function': ->
@@ -178,7 +185,7 @@ buster.testCase 'Bootstrap.Dialog',
       assert(@dialogSpy.returned(prompt()))
 
     'creates modal with "Cancel" and "Ok" buttons': ->
-      $buttons = prompt().$el.find('button')
+      $buttons = prompt().$el.find('button.btn')
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Cancel')
       assert.match($buttons.text(), 'Ok')

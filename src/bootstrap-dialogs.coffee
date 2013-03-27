@@ -18,6 +18,11 @@ exports = Bootstrap.Dialogs =
   dialog: (title, body, buttons=[]) ->
     title = $('<h3>').html(title)
 
+    $closeButton = $('''
+      <button type="button" class="close" data-dismiss="modal"
+        aria-hidden="true">&times;</button>
+    ''')
+
     body =
       if body
         $('<div class="modal-body">').html(body)
@@ -31,12 +36,15 @@ exports = Bootstrap.Dialogs =
       else
         text = button[0]
         handler = button[1]
-      $btn = $('<button class="btn">').html(text)
+      $btn = $('<button type="button" class="btn">').html(text)
       $btn.click(handler) if handler instanceof Function
       $btn
 
     $el = $('<div class="modal hide fade">').html([
-      $('<div class="modal-header">').html(title)
+      $('<div class="modal-header">').html([
+        $closeButton
+        title
+      ])
       body
       $('<div class="modal-footer">').html(buttons)
     ])
@@ -48,6 +56,8 @@ exports = Bootstrap.Dialogs =
     promise.always ->
       $el.modal('hide')
       $el.remove()
+
+    $closeButton.click(-> promise.reject())
 
     $el.modal(backdrop: 'static')
     promise
