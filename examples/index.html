@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Bootstrap Dialog Examples</title>
   <link
     rel="stylesheet"
     href="../components/bootstrap/docs/assets/css/bootstrap.css">
 </head>
 <body>
   <div class="container">
-    <h3>Dialog Examples</h3>
+    <h3>Bootstrap Dialog Examples</h3>
+
     <p class="well">
       <button class="btn show-alert">Show Alert</button>
       <button class="btn show-confirm">Show Confirm</button>
       <button class="btn show-prompt">Show Prompt</button>
     </p>
+
     <div class="alert alert-success hide fade in">
       <button type="button" class="close" data-dismiss="alert">×</button>
       <strong></strong>
     </div>
+
     <div class="alert alert-error hide fade in">
       <button type="button" class="close" data-dismiss="alert">×</button>
       <strong></strong>
     </div>
   </div>
+
   <script src="../components/jquery/jquery.js"></script>
   <script src="../components/bootstrap/js/bootstrap-alert.js"></script>
   <script src="../components/bootstrap/js/bootstrap-modal.js"></script>
   <script src="../dist/bootstrap-dialogs.js"></script>
+
   <script>
     $(function () {
 
