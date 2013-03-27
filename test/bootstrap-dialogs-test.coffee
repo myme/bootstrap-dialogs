@@ -27,12 +27,10 @@ buster.testCase 'Bootstrap.Dialog',
       assert.calledOnceWith(@dialogSpy, 'Title', 'Body')
 
     'returns same as .dialog': ->
-      promise = alert()
-      assert(@dialogSpy.returned(promise))
+      assert(@dialogSpy.returned(alert()))
 
     'creates modal with one "Ok" button': ->
-      promise = alert()
-      $btn = promise.$el.find('button')
+      $btn = alert().$el.find('button')
       assert.equals($btn.length, 1)
       assert.equals($btn.text(), 'Ok')
 
@@ -50,12 +48,10 @@ buster.testCase 'Bootstrap.Dialog',
       assert.calledOnceWith(@dialogSpy, 'Title', 'Body')
 
     'returns same as .dialog': ->
-      promise = confirm()
-      assert(@dialogSpy.returned(promise))
+      assert(@dialogSpy.returned(confirm()))
 
     'creates modal with "Cancel" and "Ok" button': ->
-      promise = confirm()
-      $buttons = promise.$el.find('button')
+      $buttons = confirm().$el.find('button')
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Cancel')
       assert.match($buttons.text(), 'Ok')
@@ -124,12 +120,10 @@ buster.testCase 'Bootstrap.Dialog',
       assert.calledOnceWith(@dialogSpy, 'Title', 'Body')
 
     'returns same as .dialog': ->
-      promise = prompt()
-      assert(@dialogSpy.returned(promise))
+      assert(@dialogSpy.returned(prompt()))
 
     'creates modal with "Cancel" and "Ok" buttons': ->
-      promise = prompt()
-      $buttons = promise.$el.find('button')
+      $buttons = prompt().$el.find('button')
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Cancel')
       assert.match($buttons.text(), 'Ok')
