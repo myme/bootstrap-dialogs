@@ -1,3 +1,4 @@
+$ = this.jQuery
 Bootstrap = this.Bootstrap or= {}
 
 
@@ -10,6 +11,7 @@ exports = Bootstrap.Dialog =
     exports.dialog(title)
 
   dialog: ->
+    $.Deferred()
 
   prompt: (title) ->
     exports.dialog(title)

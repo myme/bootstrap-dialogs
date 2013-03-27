@@ -1,3 +1,4 @@
+$ = this.jQuery
 Bootstrap = this.Bootstrap
 {alert, confirm, dialog, prompt} = Bootstrap.Dialog
 
@@ -25,6 +26,10 @@ buster.testCase 'Bootstrap.Dialog',
       alert('Foobar')
       assert.calledOnceWith(@dialogSpy, 'Foobar')
 
+    'returns same as .dialog': ->
+      promise = alert()
+      assert(@dialogSpy.returned(promise))
+
   'confirm':
 
     'is a function': ->
@@ -38,10 +43,23 @@ buster.testCase 'Bootstrap.Dialog',
       confirm('Foobar')
       assert.calledOnceWith(@dialogSpy, 'Foobar')
 
+    'returns same as .dialog': ->
+      promise = confirm()
+      assert(@dialogSpy.returned(promise))
+
   'dialog':
 
     'is a function': ->
       assert.isFunction(dialog)
+
+    'returns a promise with .then': ->
+      assert.isFunction(dialog().then)
+
+    'returns a promise with .done': ->
+      assert.isFunction(dialog().done)
+
+    'returns a promise with .fail': ->
+      assert.isFunction(dialog().fail)
 
   'prompt':
 
@@ -55,3 +73,7 @@ buster.testCase 'Bootstrap.Dialog',
     'calls .dialog with title': ->
       prompt('Foobar')
       assert.calledOnceWith(@dialogSpy, 'Foobar')
+
+    'returns same as .dialog': ->
+      promise = prompt()
+      assert(@dialogSpy.returned(promise))
