@@ -170,3 +170,15 @@ buster.testCase 'Bootstrap.Dialog',
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Cancel')
       assert.match($buttons.text(), 'Ok')
+
+    'clicking "Ok" button triggers .resolve': ->
+      promise = prompt()
+      spy = @spy(promise, 'resolve')
+      promise.$el.find('button:contains("Ok")').click()
+      assert.calledOnce(spy)
+
+    'clicking "Cancel" button triggers .reject': ->
+      promise = prompt()
+      spy = @spy(promise, 'reject')
+      promise.$el.find('button:contains("Cancel")').click()
+      assert.calledOnce(spy)
