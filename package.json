@@ -4,6 +4,7 @@
   "description": "Bootstrap Dialogs",
   "main": "index.js",
   "scripts": {
+    "prepublish": "bower install",
     "start": "grunt start",
     "test": "grunt test"
   },
@@ -16,14 +17,15 @@
   "author": "Martin Øinæs Myrseth",
   "license": "BSD",
   "devDependencies": {
-    "grunt-buster": "~0.1.2",
-    "grunt-contrib-coffee": "~0.6.4",
-    "grunt": "~0.4.1",
+    "bower": "~0.8.5",
     "buster": "~0.6.12",
-    "phantomjs": "~1.9.0-0",
+    "grunt": "~0.4.1",
+    "grunt-buster": "~0.1.2",
     "grunt-coffeelint": "0.0.6",
+    "grunt-contrib-coffee": "~0.6.4",
+    "grunt-contrib-connect": "~0.2.0",
     "grunt-contrib-jshint": "~0.3.0",
     "grunt-contrib-watch": "~0.3.1",
-    "grunt-contrib-connect": "~0.2.0"
+    "phantomjs": "~1.9.0-0"
   }
 }
