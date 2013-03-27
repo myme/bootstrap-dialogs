@@ -64,6 +64,11 @@ Examples
 To see the examples in action, issue `npm install && npm start` and access
 [http://localhost:8000/examples/](http://localhost:8000/examples/).
 
+Upgrade the distribution files
+------------------------------
+
+In order to upgrade the distribution files bundled in the repo, run `npm run-script dist`.
+
 License
 -------
 
