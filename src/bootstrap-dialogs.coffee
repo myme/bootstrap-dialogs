@@ -2,7 +2,7 @@ $ = this.jQuery
 Bootstrap = this.Bootstrap or= {}
 
 
-exports = Bootstrap.Dialog =
+exports = Bootstrap.Dialogs =
 
   alert: (title) ->
     exports.dialog(title)

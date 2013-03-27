@@ -1,6 +1,6 @@
 $ = this.jQuery
 Bootstrap = this.Bootstrap
-{alert, confirm, dialog, prompt} = Bootstrap.Dialog
+{alert, confirm, dialog, prompt} = Bootstrap.Dialogs
 
 
 buster = this.buster
@@ -11,7 +11,7 @@ refute = buster.refute
 buster.testCase 'Bootstrap.Dialog',
 
   setUp: ->
-    @dialogSpy = @spy(Bootstrap.Dialog, 'dialog')
+    @dialogSpy = @spy(Bootstrap.Dialogs, 'dialog')
 
   'alert':
 
