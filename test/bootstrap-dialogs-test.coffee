@@ -120,6 +120,11 @@ buster.testCase 'Bootstrap.Dialog',
       $el = dialog().$el
       assert.calledOn(spy, $el)
 
+    'sets a static backdrop': ->
+      spy = @spy($.fn, 'modal')
+      dialog()
+      assert.calledOnceWith(spy, backdrop: 'static')
+
   'prompt':
 
     'is a function': ->

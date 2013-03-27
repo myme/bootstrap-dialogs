@@ -44,7 +44,7 @@ exports = Bootstrap.Dialogs =
     promise.el = $el[0]
     promise.$el = $el
 
-    $el.modal('show')
+    $el.modal(backdrop: 'static')
 
     promise
 
