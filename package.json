@@ -1,14 +1,14 @@
 {
   "name": "bootstrap-dialogs",
   "version": "0.0.0",
-  "description": "Bootstrap Dialogs",
+  "description": "Twitter Bootstrap Modal Dialogs",
   "main": "index.js",
   "scripts": {
     "prepublish": "bower install",
     "start": "grunt start",
     "test": "grunt test"
   },
-  "repository": "",
+  "repository": "git://github.com/myme/bootstrap-dialogs.git",
   "keywords": [
     "bootstrap",
     "dialog",
