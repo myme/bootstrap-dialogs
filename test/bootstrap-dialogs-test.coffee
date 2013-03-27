@@ -200,3 +200,13 @@ buster.testCase 'Bootstrap.Dialog',
       spy = @spy(promise, 'reject')
       promise.$el.find('button:contains("Cancel")').click()
       assert.calledOnce(spy)
+
+    'pressing Return in the input field submits': ->
+      spy = @spy()
+      promise = prompt().done(spy)
+      event = $.Event('keypress')
+      event.which = 13
+      promise.$el.find('input')
+        .val('foobar')
+        .trigger(event)
+      assert.calledOnceWith(spy, 'foobar')

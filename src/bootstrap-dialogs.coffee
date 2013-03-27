@@ -51,8 +51,13 @@ exports = Bootstrap.Dialogs =
     promise
 
   prompt: (title='Please enter a value', body='') ->
-    $input = $('<input type="text">')
+    resolve = -> promise.resolve($input.val())
+    reject = -> promise.reject()
+    keypress = (e) -> resolve() if e.which is 13
+
+    $input = $('<input type="text">').keypress(keypress)
+
     promise = exports.dialog(title, [ body, $input ], [
-      [ 'Cancel', -> promise.reject() ]
-      [ 'Ok', -> promise.resolve($input.val()) ]
+      [ 'Cancel', reject ]
+      [ 'Ok', resolve ]
     ])
