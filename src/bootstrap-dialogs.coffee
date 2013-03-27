@@ -11,7 +11,7 @@ exports = Bootstrap.Dialogs =
     exports.dialog(title)
 
   dialog: (title) ->
-    html = """
+    $el = $("""
       <div class="modal hide fade">
         <div class="modal-header">
           #{title}
@@ -21,10 +21,14 @@ exports = Bootstrap.Dialogs =
         <div class="modal-footer">
         </div>
       </div>
-    """
+    """)
 
     promise = $.Deferred()
-    promise.el = $(html)[0]
+    promise.el = $el[0]
+    promise.$el = $el
+
+    $el.modal('show')
+
     promise
 
   prompt: (title) ->

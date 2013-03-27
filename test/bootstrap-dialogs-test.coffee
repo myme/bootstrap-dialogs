@@ -61,14 +61,23 @@ buster.testCase 'Bootstrap.Dialog',
     'returns a promise with .fail': ->
       assert.isFunction(dialog().fail)
 
+    'promise holds reference to jquery modal': ->
+      assert.tagName(dialog().$el[0], 'div')
+
     'promise holds reference to modal': ->
-      assert.tagName(dialog().el, 'div')
+      promise = dialog()
+      assert.same(promise.el, promise.$el[0])
 
     'element has modal class': ->
       assert.className(dialog().el, 'modal')
 
     'adds title to modal element': ->
       assert.match(dialog('Foobar').el, innerHTML: 'Foobar')
+
+    'calls $.fn.modal on proper element': ->
+      spy = @spy($.fn, 'modal')
+      $el = dialog().$el
+      assert.calledOn(spy, $el)
 
   'prompt':
 
