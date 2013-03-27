@@ -18,7 +18,7 @@ exports = Bootstrap.Dialogs =
   dialog: (title, body, buttons=[]) ->
     body =
       if body
-        """<div class="modal-body">#{body}</div>"""
+        $('<div class="modal-body">').html(body)
       else
         ''
 
@@ -29,7 +29,7 @@ exports = Bootstrap.Dialogs =
       else
         text = button[0]
         handler = button[1]
-      $btn = $("""<button class="btn">#{text}</button>""")
+      $btn = $('<button class="btn">').html(text)
       $btn.click(handler) if handler instanceof Function
       $btn
 
