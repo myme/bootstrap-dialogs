@@ -187,11 +187,13 @@ buster.testCase 'Bootstrap.Dialog',
       $input = prompt().$el.find('input')
       assert.equals($input.length, 1)
 
-    'clicking "Ok" button triggers .resolve': ->
+    'clicking "Ok" button triggers .resolve with input value': ->
       promise = prompt()
       spy = @spy(promise, 'resolve')
-      promise.$el.find('button:contains("Ok")').click()
-      assert.calledOnce(spy)
+      $el = promise.$el
+      $el.find('input').val('Foobar')
+      $el.find('button:contains("Ok")').click()
+      assert.calledOnceWith(spy, 'Foobar')
 
     'clicking "Cancel" button triggers .reject': ->
       promise = prompt()

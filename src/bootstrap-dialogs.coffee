@@ -58,5 +58,5 @@ exports = Bootstrap.Dialogs =
     """
     promise = exports.dialog(title, body, [
       [ 'Cancel', -> promise.reject() ]
-      [ 'Ok', -> promise.resolve() ]
+      [ 'Ok', -> promise.resolve(promise.$el.find('input').val()) ]
     ])
