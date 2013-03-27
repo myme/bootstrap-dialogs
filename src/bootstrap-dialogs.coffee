@@ -5,8 +5,8 @@ Bootstrap = this.Bootstrap or= {}
 exports = Bootstrap.Dialogs =
 
   alert: (title='Alert', body) ->
-    exports.dialog(title, body, [
-      'Ok'
+    promise = exports.dialog(title, body, [
+      [ 'Ok', -> promise.resolve() ]
     ])
 
   confirm: (title='Please confirm', body) ->

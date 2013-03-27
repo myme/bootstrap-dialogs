@@ -34,6 +34,12 @@ buster.testCase 'Bootstrap.Dialog',
       assert.equals($btn.length, 1)
       assert.equals($btn.text(), 'Ok')
 
+    'clicking button triggers .resolve': ->
+      promise = alert()
+      spy = @spy(promise, 'resolve')
+      promise.$el.find('button').click()
+      assert.calledOnce(spy)
+
   'confirm':
 
     'is a function': ->
