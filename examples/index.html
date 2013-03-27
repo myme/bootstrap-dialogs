@@ -13,20 +13,62 @@
       <button class="btn show-confirm">Show Confirm</button>
       <button class="btn show-prompt">Show Prompt</button>
     </p>
+    <div class="alert alert-success hide fade in">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <strong></strong>
+    </div>
+    <div class="alert alert-error hide fade in">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <strong></strong>
+    </div>
   </div>
   <script src="../components/jquery/jquery.js"></script>
+  <script src="../components/bootstrap/js/bootstrap-alert.js"></script>
   <script src="../components/bootstrap/js/bootstrap-modal.js"></script>
   <script src="../dist/bootstrap-dialogs.js"></script>
   <script>
     $(function () {
+
+      function showSuccess(text) {
+        var $el = $('.alert-success');
+        $el.find('strong').text(text);
+        $el.show().delay(1000).fadeOut('slow');
+      }
+
+      function showFailure(text) {
+        var $el = $('.alert-error');
+        $el.find('strong').text(text);
+        $el.show().delay(1000).fadeOut('slow');
+      }
+
       $('.show-alert').click(function () {
-        Bootstrap.Dialogs.alert();
+        Bootstrap.Dialogs
+          .alert('Some message!')
+          .always(function () {
+            showSuccess('Alert dismissed!');
+          });
       });
+
       $('.show-confirm').click(function () {
-        Bootstrap.Dialogs.confirm();
+        Bootstrap.Dialogs
+          .confirm('Can you confirm this?')
+          .done(function () {
+            showSuccess('You confirmed \\:D/');
+          })
+          .fail(function () {
+            showFailure('You declined :(');
+          });
       });
+
       $('.show-prompt').click(function () {
-        Bootstrap.Dialogs.prompt();
+        Bootstrap.Dialogs
+          .prompt('Please provide some input')
+          .done(function (text) {
+            showSuccess('You typed: ' + text);
+          })
+          .fail(function () {
+            showFailure('Input cancelled');
+          });
       });
     });
   </script>
