@@ -96,6 +96,14 @@ buster.testCase 'Bootstrap.Dialog',
       assert.match($buttons.text(), 'Cancel')
       assert.match($buttons.text(), 'Ok')
 
+    'adds handlers to buttons': ->
+      spy = @spy()
+      dialog('Title', 'Body', [[ 'Ok', spy ]])
+        .$el
+        .find('button')
+        .click()
+      assert.calledOnce(spy)
+
     'adds body to modal element': ->
       assert.match(
         dialog('Foo Title', 'Bar Body').el

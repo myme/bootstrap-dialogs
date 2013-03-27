@@ -22,21 +22,23 @@ exports = Bootstrap.Dialogs =
       else
         ''
 
-    buttons = (for button in buttons
-      """<button class="btn">#{button}</button>"""
-    ).join(' ')
+    buttons = for button in buttons
+      if typeof button is 'string'
+        text = button
+        handler = null
+      else
+        text = button[0]
+        handler = button[1]
+      $btn = $("""<button class="btn">#{text}</button>""")
+      $btn.click(handler) if handler instanceof Function
+      $btn[0]
 
-    $el = $("""
-      <div class="modal hide fade">
-        <div class="modal-header">
-          #{title}
-        </div>
-        #{body}
-        <div class="modal-footer">
-          #{buttons}
-        </div>
-      </div>
-    """)
+    $el = $('<div class="modal hide fade">')
+      .html([
+        $('<div class="modal-header">').html(title)[0]
+        body
+        $('<div class="modal-footer">').html(buttons)[0]
+      ])
 
     promise = $.Deferred()
     promise.el = $el[0]
