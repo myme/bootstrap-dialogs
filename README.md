@@ -6,6 +6,8 @@ Description
 
 Asynchronous modal dialogs for the synchronous `window.alert`, `window.confirm`
 and `window.prompt`, styled and managed by [Twitter Bootstrap][bootstrap].
+Pretty similar to [Bootbox](http://bootboxjs.com/), yet using
+[jQuery](http://jquery.com)'s Deferred objects.
 
 [bootstrap]: http://twitter.github.com/bootstrap
 
