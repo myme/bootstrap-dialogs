@@ -37,25 +37,20 @@ exports = Bootstrap.Dialogs =
     ])
 
   dialog: (title, body, buttons=[]) ->
-    title = $('<h3>').html(title)
-
     $closeButton = $('''
       <button type="button" class="close" data-dismiss="modal"
         aria-hidden="true">&times;</button>
     ''')
 
-    body =
+    $el = $('<div class="modal hide fade">').html([
+      $('<div class="modal-header">').html([
+        $closeButton
+        $('<h3>').html(title)
+      ])
       if body
         $('<div class="modal-body">').html(body)
       else
         ''
-
-    $el = $('<div class="modal hide fade">').html([
-      $('<div class="modal-header">').html([
-        $closeButton
-        title
-      ])
-      body
       $('<div class="modal-footer">').html(
         normalizeButtons(buttons)
       )
