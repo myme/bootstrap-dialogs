@@ -2,17 +2,24 @@ $ = this.jQuery
 Bootstrap = this.Bootstrap or= {}
 
 
+mkbutton = (text, isPrimary) ->
+  primary = if isPrimary then 'btn-primary' else ''
+  $("""
+    <button type="button" class="btn #{primary}">#{text}</button>
+  """)
+
+
 exports = Bootstrap.Dialogs =
 
   alert: (title='Alert', body) ->
     promise = exports.dialog(title, body, [
-      [ 'Ok', -> promise.resolve() ]
+      [ mkbutton('Ok', true), -> promise.resolve() ]
     ])
 
   confirm: (title='Please confirm', body) ->
     promise = exports.dialog(title, body, [
       [ 'Cancel', -> promise.reject() ]
-      [ 'Ok', -> promise.resolve() ]
+      [ mkbutton('Ok', true), -> promise.resolve() ]
     ])
 
   dialog: (title, body, buttons=[]) ->
@@ -73,7 +80,7 @@ exports = Bootstrap.Dialogs =
 
     promise = exports.dialog(title, [ body, $input ], [
       [ 'Cancel', reject ]
-      [ 'Ok', resolve ]
+      [ mkbutton('Ok', true), resolve ]
     ])
 
     $input.focus()
