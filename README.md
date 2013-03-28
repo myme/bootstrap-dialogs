@@ -72,6 +72,13 @@ In order to upgrade the distribution files bundled in the repo, run `npm run-scr
 Release notes
 -------------
 
+### v0.0.3
+
+ * Add grunt-cli as a dependency
+ * Depend on jQuery 1.8.3 to match Bootstrap
+ * Allow buttons to be jQuery objects or DOM elements
+ * Make "Ok" buttons primary
+
 ### v0.0.2
 
  * Add Bootstrap and jQuery as component dependencies.

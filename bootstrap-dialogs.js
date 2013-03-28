@@ -1,9 +1,42 @@
 (function() {
-  var $, Bootstrap, exports;
+  var $, Bootstrap, exports, mkbutton, normalizeButtons;
 
   $ = this.jQuery;
 
   Bootstrap = this.Bootstrap || (this.Bootstrap = {});
+
+  mkbutton = function(text, isPrimary) {
+    var $btn;
+
+    $btn = $('<button type="button" class="btn">').html(text);
+    if (isPrimary) {
+      $btn.addClass('btn-primary');
+    }
+    return $btn;
+  };
+
+  normalizeButtons = function(buttons) {
+    var $btn, button, handler, _i, _len, _results;
+
+    _results = [];
+    for (_i = 0, _len = buttons.length; _i < _len; _i++) {
+      button = buttons[_i];
+      if (button instanceof Array) {
+        handler = button[1];
+        button = button[0];
+      }
+      if (typeof button === 'string') {
+        $btn = mkbutton(button);
+      } else {
+        $btn = $(button);
+      }
+      if (handler instanceof Function) {
+        $btn.click(handler);
+      }
+      _results.push($btn);
+    }
+    return _results;
+  };
 
   exports = Bootstrap.Dialogs = {
     alert: function(title, body) {
@@ -14,7 +47,7 @@
       }
       return promise = exports.dialog(title, body, [
         [
-          'Ok', function() {
+          mkbutton('Ok', true), function() {
             return promise.resolve();
           }
         ]
@@ -32,43 +65,20 @@
             return promise.reject();
           }
         ], [
-          'Ok', function() {
+          mkbutton('Ok', true), function() {
             return promise.resolve();
           }
         ]
       ]);
     },
     dialog: function(title, body, buttons) {
-      var $btn, $closeButton, $el, button, handler, promise, text;
+      var $closeButton, $el, promise;
 
       if (buttons == null) {
         buttons = [];
       }
-      title = $('<h3>').html(title);
       $closeButton = $('<button type="button" class="close" data-dismiss="modal"\n  aria-hidden="true">&times;</button>');
-      body = body ? $('<div class="modal-body">').html(body) : '';
-      buttons = (function() {
-        var _i, _len, _results;
-
-        _results = [];
-        for (_i = 0, _len = buttons.length; _i < _len; _i++) {
-          button = buttons[_i];
-          if (typeof button === 'string') {
-            text = button;
-            handler = null;
-          } else {
-            text = button[0];
-            handler = button[1];
-          }
-          $btn = $('<button type="button" class="btn">').html(text);
-          if (handler instanceof Function) {
-            $btn.click(handler);
-          }
-          _results.push($btn);
-        }
-        return _results;
-      })();
-      $el = $('<div class="modal hide fade">').html([$('<div class="modal-header">').html([$closeButton, title]), body, $('<div class="modal-footer">').html(buttons)]);
+      $el = $('<div class="modal hide fade">').html([$('<div class="modal-header">').html([$closeButton, $('<h3>').html(title)]), body ? $('<div class="modal-body">').html(body) : '', $('<div class="modal-footer">').html(normalizeButtons(buttons))]);
       promise = $.Deferred();
       promise.el = $el[0];
       promise.$el = $el;
@@ -105,7 +115,7 @@
         }
       };
       $input = $('<input type="text">').keypress(keypress);
-      promise = exports.dialog(title, [body, $input], [['Cancel', reject], ['Ok', resolve]]);
+      promise = exports.dialog(title, [body, $input], [['Cancel', reject], [mkbutton('Ok', true), resolve]]);
       $input.focus();
       promise.$input = $input;
       return promise;
