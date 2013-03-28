@@ -3,10 +3,9 @@ Bootstrap = this.Bootstrap or= {}
 
 
 mkbutton = (text, isPrimary) ->
-  primary = if isPrimary then 'btn-primary' else ''
-  $("""
-    <button type="button" class="btn #{primary}">#{text}</button>
-  """)
+  $btn = $('<button type="button" class="btn">').html(text)
+  $btn.addClass('btn-primary') if isPrimary
+  $btn
 
 
 exports = Bootstrap.Dialogs =
@@ -42,7 +41,7 @@ exports = Bootstrap.Dialogs =
         button = button[0]
 
       if typeof button is 'string'
-        $btn = $('<button type="button" class="btn">').html(button)
+        $btn = mkbutton(button)
       else
         $btn = $(button)
 
