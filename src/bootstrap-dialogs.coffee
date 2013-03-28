@@ -8,6 +8,21 @@ mkbutton = (text, isPrimary) ->
   $btn
 
 
+normalizeButtons = (buttons) ->
+  for button in buttons
+    if button instanceof Array
+      handler = button[1]
+      button = button[0]
+
+    if typeof button is 'string'
+      $btn = mkbutton(button)
+    else
+      $btn = $(button)
+
+    $btn.click(handler) if handler instanceof Function
+    $btn
+
+
 exports = Bootstrap.Dialogs =
 
   alert: (title='Alert', body) ->
@@ -35,26 +50,15 @@ exports = Bootstrap.Dialogs =
       else
         ''
 
-    buttons = for button in buttons
-      if button instanceof Array
-        handler = button[1]
-        button = button[0]
-
-      if typeof button is 'string'
-        $btn = mkbutton(button)
-      else
-        $btn = $(button)
-
-      $btn.click(handler) if handler instanceof Function
-      $btn
-
     $el = $('<div class="modal hide fade">').html([
       $('<div class="modal-header">').html([
         $closeButton
         title
       ])
       body
-      $('<div class="modal-footer">').html(buttons)
+      $('<div class="modal-footer">').html(
+        normalizeButtons(buttons)
+      )
     ])
 
     promise = $.Deferred()
