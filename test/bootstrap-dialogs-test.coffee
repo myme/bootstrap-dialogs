@@ -122,6 +122,22 @@ buster.testCase 'Bootstrap.Dialog',
         .click()
       assert.calledOnce(spy)
 
+    'buttons can be DOM elements': ->
+      $el = dialog('Title', 'Body', [
+        $('<button class="btn">').html('Ok')[0]
+      ]).$el
+      $buttons = $el.find('button.btn')
+      assert.equals($buttons.length, 1)
+      assert.equals($buttons.text(), 'Ok')
+
+    'buttons can be jQuery object': ->
+      $el = dialog('Title', 'Body', [
+        $('<button class="btn">').html('Ok')
+      ]).$el
+      $buttons = $el.find('button.btn')
+      assert.equals($buttons.length, 1)
+      assert.equals($buttons.text(), 'Ok')
+
     'adds body to modal element': ->
       assert.match(
         dialog('Foo Title', 'Bar Body').el

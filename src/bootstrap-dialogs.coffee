@@ -30,13 +30,15 @@ exports = Bootstrap.Dialogs =
         ''
 
     buttons = for button in buttons
-      if typeof button is 'string'
-        text = button
-        handler = null
-      else
-        text = button[0]
+      if button instanceof Array
         handler = button[1]
-      $btn = $('<button type="button" class="btn">').html(text)
+        button = button[0]
+
+      if typeof button is 'string'
+        $btn = $('<button type="button" class="btn">').html(button)
+      else
+        $btn = $(button)
+
       $btn.click(handler) if handler instanceof Function
       $btn
 
