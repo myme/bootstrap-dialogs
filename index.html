@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Bootstrap-dialogs by myme</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Bootstrap-dialogs</h1>
+        <p>Twitter Bootstrap Modal Dialogs</p>
+
+        <p class="view"><a href="https://github.com/myme/bootstrap-dialogs">View the Project on GitHub <small>myme/bootstrap-dialogs</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/myme/bootstrap-dialogs/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/myme/bootstrap-dialogs/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/myme/bootstrap-dialogs">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Bootstrap Dialogs</h1>
+
+<h2>Description</h2>
+
+<p>Asynchronous modal dialogs for the synchronous <code>window.alert</code>, <code>window.confirm</code>
+and <code>window.prompt</code>, styled and managed by <a href="http://twitter.github.com/bootstrap">Twitter Bootstrap</a>.
+Pretty similar to <a href="http://bootboxjs.com/">Bootbox</a>, yet using
+<a href="http://jquery.com">jQuery</a>'s Deferred objects.</p>
+
+<h2>Usage</h2>
+
+<div class="highlight"><pre><span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="s1">'Alert title'</span><span class="p">,</span> <span class="s1">'Alert body'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+  <span class="p">});</span>
+
+<span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">confirm</span><span class="p">()</span>
+  <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+  <span class="p">});</span>
+
+<span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">prompt</span><span class="p">(</span><span class="s1">'What is your name?'</span><span class="p">,</span> <span class="s1">'Please enter your name'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+  <span class="p">});</span>
+</pre></div>
+
+<h2>Development</h2>
+
+<p>TL;DR: <code>npm install &amp;&amp; npm test</code></p>
+
+<p>Install <a href="http://nodejs.org">Node</a> and <a href="http://npmjs.org">Npm</a> using your packet
+manager of choice.</p>
+
+<p>Install development dependencies:</p>
+
+<pre><code>npm install
+</code></pre>
+
+<p>Build and run the tests:</p>
+
+<pre><code>npm test
+</code></pre>
+
+<p>Start a development cycle listening for changes to files running a simple
+static server, CoffeeScript linting + compilation, and the test suite:</p>
+
+<pre><code>npm start
+</code></pre>
+
+<h2>Examples</h2>
+
+<p>To see the examples in action, issue <code>npm install &amp;&amp; npm start</code> and access
+<a href="http://localhost:8000/examples/">http://localhost:8000/examples/</a>.</p>
+
+<h2>Upgrade the distribution files</h2>
+
+<p>In order to upgrade the distribution files bundled in the repo, run <code>npm run-script dist</code>.</p>
+
+<h2>Release notes</h2>
+
+<h3>v0.0.3</h3>
+
+<ul>
+<li>Add grunt-cli as a dependency</li>
+<li>Depend on jQuery 1.8.3 to match Bootstrap</li>
+<li>Allow buttons to be jQuery objects or DOM elements</li>
+<li>Make "Ok" buttons primary</li>
+</ul><h3>v0.0.2</h3>
+
+<ul>
+<li>Add Bootstrap and jQuery as component dependencies.</li>
+<li>Submit prompt on Return keypress.</li>
+<li>Give prompt input focus.</li>
+<li>Wrap titles in h3.</li>
+<li>Add close button by default.</li>
+</ul><h3>v0.0.1</h3>
+
+<ul>
+<li>Initial release.</li>
+</ul><h2>License</h2>
+
+<p>Distrubuted under the <a href="http://en.wikipedia.org/wiki/ISC_license">ISC</a> license.  Please refer to the
+<a href="LICENSE-ISC">LICENSE</a>.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/myme">myme</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
