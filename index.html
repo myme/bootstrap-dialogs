@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -90,6 +91,26 @@ static server, CoffeeScript linting + compilation, and the test suite:</p>
 
 <h2>Examples</h2>
 
+<p>
+  <h3>Bootstrap Dialog Examples</h3>
+
+  <p class="well">
+    <button class="btn show-alert">Show Alert</button>
+    <button class="btn show-confirm">Show Confirm</button>
+    <button class="btn show-prompt">Show Prompt</button>
+  </p>
+
+  <div class="alert alert-success hide fade in">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong></strong>
+  </div>
+
+  <div class="alert alert-error hide fade in">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong></strong>
+  </div>
+</p>
+
 <p>To see the examples in action, issue <code>npm install &amp;&amp; npm start</code> and access
 <a href="http://localhost:8000/examples/">http://localhost:8000/examples/</a>.</p>
 
@@ -130,5 +151,58 @@ static server, CoffeeScript linting + compilation, and the test suite:</p>
     </div>
     <script src="javascripts/scale.fix.js"></script>
     
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+    <script src="javascripts/bootstrap-dialogs.min.js"></script>
+    <script>
+      $(function () {
+
+        function showSuccess(text) {
+          var $el = $('.alert-success');
+          $el.find('strong').text(text);
+          $el.show().delay(1000).fadeOut('slow');
+        }
+
+        function showFailure(text) {
+          var $el = $('.alert-error');
+          $el.find('strong').text(text);
+          $el.show().delay(1000).fadeOut('slow');
+        }
+
+        $('.show-alert').click(function () {
+          Bootstrap.Dialogs
+            .alert('Some message!')
+            .always(function () {
+              showSuccess('Alert dismissed!');
+            });
+        });
+
+        $('.show-confirm').click(function () {
+          Bootstrap.Dialogs
+            .confirm('Please confirm', 'Can you confirm this?')
+            .done(function () {
+              showSuccess('You confirmed \\:D/');
+            })
+            .fail(function () {
+              showFailure('You declined :(');
+            });
+        });
+
+        $('.show-prompt').click(function () {
+          Bootstrap.Dialogs
+            .prompt('Please provide some input')
+            .done(function (text) {
+              if (text) {
+                showSuccess('You typed: ' + text);
+              } else {
+                showFailure("You didn't type anything");
+              }
+            })
+            .fail(function () {
+              showFailure('Input cancelled');
+            });
+        });
+      });
+    </script>
   </body>
 </html>
