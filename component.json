@@ -1,0 +1,14 @@
+{
+  "name": "bootstrap-dialogs-pages",
+  "version": "0.0.0",
+  "dependencies": {
+    "bootstrap": "~2.3.1",
+    "bootstrap-dialogs": "~0.0.3",
+    "jquery": "~1.8.3"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}
