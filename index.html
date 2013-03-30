@@ -31,18 +31,12 @@
       <section>
         <h1>Bootstrap Dialogs</h1>
 
-<p><a href="https://travis-ci.org/myme/bootstrap-dialogs"><img src="https://travis-ci.org/myme/bootstrap-dialogs.png?branch=master" alt="Build Status"></a></p>
-
-<h2>Description</h2>
-
-<p><a href="http://myme.github.com/bootstrap-dialogs">Bootstrap Dialogs</a> on github pages.</p>
-
 <p>Asynchronous modal dialogs for the synchronous <code>window.alert</code>, <code>window.confirm</code>
 and <code>window.prompt</code>, styled and managed by <a href="http://twitter.github.com/bootstrap">Twitter Bootstrap</a>.
 Pretty similar to <a href="http://bootboxjs.com/">Bootbox</a>, yet using
 <a href="http://jquery.com">jQuery</a>'s Deferred objects.</p>
 
-<h2>Usage</h2>
+<h3>Usage</h3>
 
 <div class="highlight"><pre><span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="s1">'Alert title'</span><span class="p">,</span> <span class="s1">'Alert body'</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
@@ -66,31 +60,6 @@ Pretty similar to <a href="http://bootboxjs.com/">Bootbox</a>, yet using
   <span class="p">});</span>
 </pre></div>
 
-<h2>Development</h2>
-
-<p>TL;DR: <code>npm install &amp;&amp; npm test</code></p>
-
-<p>Install <a href="http://nodejs.org">Node</a> and <a href="http://npmjs.org">Npm</a> using your packet
-manager of choice.</p>
-
-<p>Install development dependencies:</p>
-
-<pre><code>npm install
-</code></pre>
-
-<p>Build and run the tests:</p>
-
-<pre><code>npm test
-</code></pre>
-
-<p>Start a development cycle listening for changes to files running a simple
-static server, CoffeeScript linting + compilation, and the test suite:</p>
-
-<pre><code>npm start
-</code></pre>
-
-<h2>Examples</h2>
-
 <p>
   <h3>Bootstrap Dialog Examples</h3>
 
@@ -111,23 +80,16 @@ static server, CoffeeScript linting + compilation, and the test suite:</p>
   </div>
 </p>
 
-<p>To see the examples in action, issue <code>npm install &amp;&amp; npm start</code> and access
-<a href="http://localhost:8000/examples/">http://localhost:8000/examples/</a>.</p>
+<h3>Release notes</h3>
 
-<h2>Upgrade the distribution files</h2>
-
-<p>In order to upgrade the distribution files bundled in the repo, run <code>npm run-script dist</code>.</p>
-
-<h2>Release notes</h2>
-
-<h3>v0.0.3</h3>
+<h4>v0.0.3</h4>
 
 <ul>
 <li>Add grunt-cli as a dependency</li>
 <li>Depend on jQuery 1.8.3 to match Bootstrap</li>
 <li>Allow buttons to be jQuery objects or DOM elements</li>
 <li>Make "Ok" buttons primary</li>
-</ul><h3>v0.0.2</h3>
+</ul><h4>v0.0.2</h4>
 
 <ul>
 <li>Add Bootstrap and jQuery as component dependencies.</li>
@@ -135,11 +97,11 @@ static server, CoffeeScript linting + compilation, and the test suite:</p>
 <li>Give prompt input focus.</li>
 <li>Wrap titles in h3.</li>
 <li>Add close button by default.</li>
-</ul><h3>v0.0.1</h3>
+</ul><h4>v0.0.1</h4>
 
 <ul>
 <li>Initial release.</li>
-</ul><h2>License</h2>
+</ul><h3>License</h3>
 
 <p>Distrubuted under the <a href="http://en.wikipedia.org/wiki/ISC_license">ISC</a> license.  Please refer to the
 <a href="LICENSE-ISC">LICENSE</a>.</p>
