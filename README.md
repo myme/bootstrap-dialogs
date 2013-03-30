@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/myme/bootstrap-dialogs.png?branch=master)](https://travis-ci.org/myme/bootstrap-dialogs)
-
 Bootstrap Dialogs
 =================
+
+[![Build Status](https://travis-ci.org/myme/bootstrap-dialogs.png?branch=master)](https://travis-ci.org/myme/bootstrap-dialogs)
 
 Description
 -----------
