@@ -54,6 +54,24 @@ buster.testCase 'Bootstrap.Dialog',
       promise.$el.find('button.btn').click()
       assert.calledOnce(spy)
 
+    'pressing Return closes the modal as success': ->
+      spy = @spy()
+      promise = alert().done(spy)
+      triggerKey(RETURN)
+      assert.calledOnce(spy)
+
+    '.reject removes Return key handler from body': ->
+      promise = alert().reject()
+      spy = @spy(promise, 'resolve')
+      triggerKey(RETURN)
+      refute.called(spy)
+
+    '.resolve removes ESC key handler from body': ->
+      promise = alert().resolve()
+      spy = @spy(promise, 'resolve')
+      triggerKey(RETURN)
+      refute.called(spy)
+
   'confirm':
 
     'is a function': ->

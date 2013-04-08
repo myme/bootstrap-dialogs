@@ -33,6 +33,10 @@ exports = Bootstrap.Dialogs =
     promise = exports.dialog(title, body, [
       [ mkbutton('Ok', true), -> promise.resolve() ]
     ])
+    returnHandler = (e) -> promise.resolve() if e.which is RETURN
+    $('body').on('keyup', returnHandler)
+    promise.always ->
+      $('body').off('keyup', returnHandler)
 
   confirm: (title='Please confirm', body) ->
     promise = exports.dialog(title, body, [
