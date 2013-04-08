@@ -67,6 +67,7 @@ Pretty similar to <a href="http://bootboxjs.com/">Bootbox</a>, yet using
     <button class="btn show-alert">Show Alert</button>
     <button class="btn show-confirm">Show Confirm</button>
     <button class="btn show-prompt">Show Prompt</button>
+    <button class="btn show-custom">Custom</button>
   </p>
 
   <div class="alert alert-success hide fade in">
@@ -82,7 +83,11 @@ Pretty similar to <a href="http://bootboxjs.com/">Bootbox</a>, yet using
 
 <h3>Release notes</h3>
 
-<h4>v0.0.3</h4>
+<h4>v0.1.0</h4>
+
+<ul>
+<li>Add keyboard bindings for Return and Escape</li>
+</ul><h4>v0.0.3</h4>
 
 <ul>
 <li>Add grunt-cli as a dependency</li>
@@ -131,6 +136,11 @@ Pretty similar to <a href="http://bootboxjs.com/">Bootbox</a>, yet using
           $el.show().delay(1000).fadeOut('slow');
         }
 
+
+        /*
+            Show an alert message.
+         */
+
         $('.show-alert').click(function () {
           Bootstrap.Dialogs
             .alert('Some message!')
@@ -138,6 +148,11 @@ Pretty similar to <a href="http://bootboxjs.com/">Bootbox</a>, yet using
               showSuccess('Alert dismissed!');
             });
         });
+
+
+        /*
+            Show a confirmation dialog.
+         */
 
         $('.show-confirm').click(function () {
           Bootstrap.Dialogs
@@ -149,6 +164,11 @@ Pretty similar to <a href="http://bootboxjs.com/">Bootbox</a>, yet using
               showFailure('You declined :(');
             });
         });
+
+
+        /*
+            Show a simple prompt.
+         */
 
         $('.show-prompt').click(function () {
           Bootstrap.Dialogs
@@ -163,6 +183,54 @@ Pretty similar to <a href="http://bootboxjs.com/">Bootbox</a>, yet using
             .fail(function () {
               showFailure('Input cancelled');
             });
+        });
+
+
+        /*
+            A more contrived example of customizing possibilites.
+         */
+
+        $('.show-custom').click(function () {
+          var dialog;
+
+          function cancel() {
+            dialog.reject();
+          }
+
+          function ok() {
+            dialog.resolve();
+          }
+
+          var body = $('<div>').html([
+            '<b>Custom body!</b>'
+          ]);
+
+          dialog = Bootstrap.Dialogs
+            .dialog('Custom title', body, [
+              [ 'CANCEL!', cancel ],
+              $('<button>')
+                .addClass('btn btn-primary')
+                .html('OK!')
+                .click(ok),
+              [
+                $('<button>')
+                  .addClass('btn btn-danger')
+                  .html('ERROR!'),
+                function () {
+                  dialog.reject('error');
+                }
+              ]
+            ])
+            .done(function () {
+              showSuccess('You clicked "OK!"');
+            })
+            .fail(function (error) {
+              if (error) {
+                showFailure('You clicked "ERROR!"');
+              } else {
+                showFailure('You clicked "CANCEL!"');
+              }
+            })
         });
       });
     </script>
