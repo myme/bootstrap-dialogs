@@ -2,6 +2,10 @@ $ = this.jQuery
 Bootstrap = this.Bootstrap or= {}
 
 
+RETURN = 13
+ESC = 27
+
+
 mkbutton = (text, isPrimary) ->
   $btn = $('<button type="button" class="btn">').html(text)
   $btn.addClass('btn-primary') if isPrimary
@@ -60,11 +64,15 @@ exports = Bootstrap.Dialogs =
     promise.el = $el[0]
     promise.$el = $el
 
+    escHandler = (e) -> promise.reject() if e.which is ESC
+
     promise.always ->
+      $('body').off('keyup', escHandler)
       $el.modal('hide')
       $el.remove()
 
     $closeButton.click(-> promise.reject())
+    $('body').on('keyup', escHandler)
 
     $el.modal(backdrop: 'static')
     promise

@@ -8,6 +8,16 @@ assert = buster.assert
 refute = buster.refute
 
 
+RETURN = 13
+ESC = 27
+
+
+triggerKey = (which, el='body') ->
+  event = $.Event('keyup')
+  event.which = which
+  $(el).trigger(event)
+
+
 buster.testCase 'Bootstrap.Dialog',
 
   setUp: ->
@@ -185,6 +195,24 @@ buster.testCase 'Bootstrap.Dialog',
       promise.fail(spy)
       promise.$el.find('button.close').click()
       assert.calledOnce(spy)
+
+    'pressing ESC .rejects the modal': ->
+      spy = @spy()
+      dialog().fail(spy)
+      triggerKey(ESC)
+      assert.calledOnce(spy)
+
+    '.reject removes ESC key handler from body': ->
+      promise = dialog().reject()
+      spy = @spy(promise, 'reject')
+      triggerKey(ESC)
+      refute.called(spy)
+
+    '.resolve removes ESC key handler from body': ->
+      promise = dialog().resolve()
+      spy = @spy(promise, 'reject')
+      triggerKey(ESC)
+      refute.called(spy)
 
   'prompt':
 
