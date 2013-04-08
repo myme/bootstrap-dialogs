@@ -14,6 +14,7 @@
       <button class="btn show-alert">Show Alert</button>
       <button class="btn show-confirm">Show Confirm</button>
       <button class="btn show-prompt">Show Prompt</button>
+      <button class="btn show-custom">Custom</button>
     </p>
 
     <div class="alert alert-success hide fade in">
@@ -47,6 +48,11 @@
         $el.show().delay(1000).fadeOut('slow');
       }
 
+
+      /*
+          Show an alert message.
+       */
+
       $('.show-alert').click(function () {
         Bootstrap.Dialogs
           .alert('Some message!')
@@ -54,6 +60,11 @@
             showSuccess('Alert dismissed!');
           });
       });
+
+
+      /*
+          Show a confirmation dialog.
+       */
 
       $('.show-confirm').click(function () {
         Bootstrap.Dialogs
@@ -65,6 +76,11 @@
             showFailure('You declined :(');
           });
       });
+
+
+      /*
+          Show a simple prompt.
+       */
 
       $('.show-prompt').click(function () {
         Bootstrap.Dialogs
@@ -79,6 +95,54 @@
           .fail(function () {
             showFailure('Input cancelled');
           });
+      });
+
+
+      /*
+          A more contrived example of customizing possibilites.
+       */
+
+      $('.show-custom').click(function () {
+        var dialog;
+
+        function cancel() {
+          dialog.reject();
+        }
+
+        function ok() {
+          dialog.resolve();
+        }
+
+        var body = $('<div>').html([
+          '<b>Custom body!</b>'
+        ]);
+
+        dialog = Bootstrap.Dialogs
+          .dialog('Custom title', body, [
+            [ 'CANCEL!', cancel ],
+            $('<button>')
+              .addClass('btn btn-primary')
+              .html('OK!')
+              .click(ok),
+            [
+              $('<button>')
+                .addClass('btn btn-danger')
+                .html('ERROR!'),
+              function () {
+                dialog.reject('error');
+              }
+            ]
+          ])
+          .done(function () {
+            showSuccess('You clicked "OK!"');
+          })
+          .fail(function (error) {
+            if (error) {
+              showFailure('You clicked "ERROR!"');
+            } else {
+              showFailure('You clicked "CANCEL!"');
+            }
+          })
       });
     });
   </script>
