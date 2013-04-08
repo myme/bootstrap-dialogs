@@ -10,8 +10,15 @@
   "repository": "git://github.com/myme/bootstrap-dialogs.git",
   "ignore": [
     "**/.*",
+    "**/*.coffee",
+    "buster.js",
     "node_modules",
-    "components"
+    "npm-debug.log",
+    "package.json",
+    "components",
+    "dist",
+    "src",
+    "test"
   ],
   "dependencies": {
     "bootstrap": "~2.3.1",
