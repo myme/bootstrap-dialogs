@@ -76,6 +76,10 @@ In order to upgrade the distribution files bundled in the repo, run `npm run-scr
 Release notes
 -------------
 
+### v0.1.0
+
+ * Add keyboard bindings for Return and Escape
+
 ### v0.0.3
 
  * Add grunt-cli as a dependency
