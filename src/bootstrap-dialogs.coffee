@@ -80,14 +80,18 @@ exports = Bootstrap.Dialogs =
   prompt: (title='Please enter a value', body='') ->
     resolve = -> promise.resolve($input.val())
     reject = -> promise.reject()
-    keypress = (e) -> resolve() if e.which is 13
+    keyup = (e) -> resolve() if e.which is RETURN
 
-    $input = $('<input type="text">').keypress(keypress)
+    $input = $('<input type="text">')
 
     promise = exports.dialog(title, [ body, $input ], [
       [ 'Cancel', reject ]
       [ mkbutton('Ok', true), resolve ]
     ])
+
+    $('body').on('keyup', keyup)
+    promise.always ->
+      $('body').off('keyup', keyup)
 
     $input.focus()
     promise.$input = $input

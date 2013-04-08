@@ -266,13 +266,23 @@ buster.testCase 'Bootstrap.Dialog',
 
     'pressing Return in the input field submits': ->
       spy = @spy()
-      promise = prompt().done(spy)
-      event = $.Event('keypress')
-      event.which = 13
-      promise.$el.find('input')
-        .val('foobar')
-        .trigger(event)
+      prompt()
+        .done(spy)
+        .$el.find('input').val('foobar')
+      triggerKey(RETURN)
       assert.calledOnceWith(spy, 'foobar')
+
+    '.reject removes Return key handler from body': ->
+      promise = prompt().reject()
+      spy = @spy(promise, 'resolve')
+      triggerKey(RETURN)
+      refute.called(spy)
+
+    '.resolve removes ESC key handler from body': ->
+      promise = prompt().resolve()
+      spy = @spy(promise, 'resolve')
+      triggerKey(RETURN)
+      refute.called(spy)
 
     'input has focus': ->
       spy = @spy($.fn, 'focus')
