@@ -19,12 +19,12 @@ Usage
 -----
 
 ```javascript
-Bootstrap.Dialog.alert('Alert title', 'Alert body')
+Bootstrap.Dialogs.alert('Alert title', 'Alert body')
   .done(function () {
     ...
   });
 
-Bootstrap.Dialog.confirm()
+Bootstrap.Dialogs.confirm()
   .done(function () {
     ...
   })
@@ -32,7 +32,7 @@ Bootstrap.Dialog.confirm()
     ...
   });
 
-Bootstrap.Dialog.prompt('What is your name?', 'Please enter your name')
+Bootstrap.Dialogs.prompt('What is your name?', 'Please enter your name')
   .done(function (name) {
     ...
   })
