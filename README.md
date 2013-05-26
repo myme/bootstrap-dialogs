@@ -19,7 +19,7 @@ Usage
 -----
 
 ```javascript
-Bootstrap.Dialogs.alert('Alert title', 'Alert body')
+Bootstrap.Dialogs.alert({ title: 'Alert title', body: 'Alert body' })
   .done(function () {
     ...
   });
@@ -32,7 +32,7 @@ Bootstrap.Dialogs.confirm()
     ...
   });
 
-Bootstrap.Dialogs.prompt('What is your name?', 'Please enter your name')
+Bootstrap.Dialogs.prompt({ title: 'What is your name?', body: 'Please enter your name' })
   .done(function (name) {
     ...
   })
@@ -75,6 +75,12 @@ In order to upgrade the distribution files bundled in the repo, run `npm run-scr
 
 Release notes
 -------------
+
+### v0.2.0
+
+ * Update API's argument passing style to be objects rather
+   than regular argument list.
+ * Fix #2: Add option to make the 'OK' button take on the btn-danger class.
 
 ### v0.1.0
 
