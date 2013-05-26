@@ -48,6 +48,10 @@ buster.testCase 'Bootstrap.Dialog',
       $btn = alert().$el.find('button.btn')
       assert.className($btn[0], 'btn-primary')
 
+    'danger options gives "Ok" button btn-danger class': ->
+      $btn = alert(danger: true).$el.find('button.btn')
+      assert.className($btn[0], 'btn-danger')
+
     'clicking button triggers .resolve': ->
       promise = alert()
       spy = @spy(promise, 'resolve')
@@ -97,6 +101,10 @@ buster.testCase 'Bootstrap.Dialog',
     '"Ok" button has class btn-primary': ->
       $btn = confirm().$el.find('button.btn:contains("Ok")')
       assert.className($btn[0], 'btn-primary')
+
+    'danger options gives "Ok" button btn-danger class': ->
+      $btn = confirm(danger: true).$el.find('button.btn:contains("Ok")')
+      assert.className($btn[0], 'btn-danger')
 
     'clicking "Ok" button triggers .resolve': ->
       promise = confirm()
@@ -277,6 +285,10 @@ buster.testCase 'Bootstrap.Dialog',
     '"Ok" button has class btn-primary': ->
       $btn = prompt().$el.find('button.btn:contains("Ok")')
       assert.className($btn[0], 'btn-primary')
+
+    'danger options gives "Ok" button btn-danger class': ->
+      $btn = prompt(danger: true).$el.find('button.btn:contains("Ok")')
+      assert.className($btn[0], 'btn-danger')
 
     'creates modal input field': ->
       $input = prompt().$el.find('input')
