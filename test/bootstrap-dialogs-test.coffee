@@ -267,7 +267,9 @@ buster.testCase 'Bootstrap.Dialog',
 
     'does not turn undefined body into "undefined" string': ->
       prompt()
-      assert.match(@dialogSpy.args[0][0], title: 'Please enter a value', body: '')
+      assert.match @dialogSpy.args[0][0],
+        title: 'Please enter a value'
+        body: ''
 
     'calls .dialog with title and body': ->
       prompt(title: 'Title', body: 'Body')
