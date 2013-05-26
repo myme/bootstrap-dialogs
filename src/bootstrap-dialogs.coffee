@@ -29,22 +29,37 @@ normalizeButtons = (buttons) ->
 
 exports = Bootstrap.Dialogs =
 
-  alert: (title='Alert', body) ->
-    promise = exports.dialog(title, body, [
-      [ mkbutton('Ok', true), -> promise.resolve() ]
-    ])
+  alert: (options={}) ->
+    title = options.title or 'Alert'
+    body = options.body
+    promise = exports.dialog
+      title: title
+      body: body
+      buttons: [
+        [ mkbutton('Ok', true), -> promise.resolve() ]
+      ]
     returnHandler = (e) -> promise.resolve() if e.which is RETURN
     $('body').on('keyup', returnHandler)
     promise.always ->
       $('body').off('keyup', returnHandler)
 
-  confirm: (title='Please confirm', body) ->
-    promise = exports.dialog(title, body, [
-      [ 'Cancel', -> promise.reject() ]
-      [ mkbutton('Ok', true), -> promise.resolve() ]
-    ])
+  confirm: (options={}) ->
+    title = options.title or 'Please confirm'
+    body = options.body
+    promise = exports.dialog
+      title: title
+      body: body
+      buttons: [
+        [ 'Cancel', -> promise.reject() ]
+        [ mkbutton('Ok', true), -> promise.resolve() ]
+      ]
 
   dialog: (title, body, buttons=[]) ->
+    if typeof title is 'object'
+      body = title.body
+      buttons = title.buttons or []
+      title = title.title
+
     $closeButton = $('''
       <button type="button" class="close" data-dismiss="modal"
         aria-hidden="true">&times;</button>
@@ -81,17 +96,22 @@ exports = Bootstrap.Dialogs =
     $el.modal(backdrop: 'static')
     promise
 
-  prompt: (title='Please enter a value', body='') ->
+  prompt: (options={}) ->
+    title = options.title or 'Please enter a value'
+    body = options.body or ''
     resolve = -> promise.resolve($input.val())
     reject = -> promise.reject()
     keyup = (e) -> resolve() if e.which is RETURN
 
     $input = $('<input type="text">')
 
-    promise = exports.dialog(title, [ body, $input ], [
-      [ 'Cancel', reject ]
-      [ mkbutton('Ok', true), resolve ]
-    ])
+    promise = exports.dialog
+      title: title
+      body: [ body, $input ]
+      buttons: [
+        [ 'Cancel', reject ]
+        [ mkbutton('Ok', true), resolve ]
+      ]
 
     $('body').on('keyup', keyup)
     promise.always ->

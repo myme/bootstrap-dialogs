@@ -55,7 +55,7 @@
 
       $('.show-alert').click(function () {
         Bootstrap.Dialogs
-          .alert('Some message!')
+          .alert({ title: 'Some message!' })
           .always(function () {
             showSuccess('Alert dismissed!');
           });
@@ -68,7 +68,7 @@
 
       $('.show-confirm').click(function () {
         Bootstrap.Dialogs
-          .confirm('Please confirm', 'Can you confirm this?')
+          .confirm({ title: 'Please confirm', body: 'Can you confirm this?' })
           .done(function () {
             showSuccess('You confirmed \\:D/');
           })
@@ -84,7 +84,7 @@
 
       $('.show-prompt').click(function () {
         Bootstrap.Dialogs
-          .prompt('Please provide some input')
+          .prompt({ title: 'Please provide some input' })
           .done(function (text) {
             if (text) {
               showSuccess('You typed: ' + text);
@@ -118,21 +118,25 @@
         ]);
 
         dialog = Bootstrap.Dialogs
-          .dialog('Custom title', body, [
-            [ 'CANCEL!', cancel ],
-            $('<button>')
-              .addClass('btn btn-primary')
-              .html('OK!')
-              .click(ok),
-            [
+          .dialog({
+            title: 'Custom title',
+            body: body,
+            buttons: [
+              [ 'CANCEL!', cancel ],
               $('<button>')
-                .addClass('btn btn-danger')
-                .html('ERROR!'),
-              function () {
-                dialog.reject('error');
-              }
+                .addClass('btn btn-primary')
+                .html('OK!')
+                .click(ok),
+              [
+                $('<button>')
+                  .addClass('btn btn-danger')
+                  .html('ERROR!'),
+                function () {
+                  dialog.reject('error');
+                }
+              ]
             ]
-          ])
+          })
           .done(function () {
             showSuccess('You clicked "OK!"');
           })

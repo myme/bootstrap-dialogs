@@ -30,11 +30,11 @@ buster.testCase 'Bootstrap.Dialog',
 
     'calls .dialog with default title': ->
       alert()
-      assert.calledOnceWith(@dialogSpy, 'Alert')
+      assert.match(@dialogSpy.args[0][0], title: 'Alert')
 
     'calls .dialog with title and body': ->
-      alert('Title', 'Body')
-      assert.calledOnceWith(@dialogSpy, 'Title', 'Body')
+      alert(title: 'Title', body: 'Body')
+      assert.match(@dialogSpy.args[0][0], title: 'Title', body: 'Body')
 
     'returns same as .dialog': ->
       assert(@dialogSpy.returned(alert()))
@@ -79,11 +79,11 @@ buster.testCase 'Bootstrap.Dialog',
 
     'calls .dialog with default title': ->
       confirm()
-      assert.calledOnceWith(@dialogSpy, 'Please confirm')
+      assert.match(@dialogSpy.args[0][0], title: 'Please confirm')
 
     'calls .dialog with title and body': ->
-      confirm('Title', 'Body')
-      assert.calledOnceWith(@dialogSpy, 'Title', 'Body')
+      confirm(title: 'Title', body: 'Body')
+      assert.match(@dialogSpy.args[0][0], title: 'Title', body: 'Body')
 
     'returns same as .dialog': ->
       assert(@dialogSpy.returned(confirm()))
@@ -146,6 +146,22 @@ buster.testCase 'Bootstrap.Dialog',
         'Cancel', 'Ok'
       ]).$el
       $buttons = $el.find('button.btn')
+      assert.equals($buttons.length, 2)
+      assert.match($buttons.text(), 'Cancel')
+      assert.match($buttons.text(), 'Ok')
+
+    'supports arguments passed in as hash': ->
+      d = dialog
+        title: 'Title'
+        body: 'Body'
+        buttons: [
+          'Cancel', 'Ok'
+        ]
+
+      assert.match(d.el, innerHTML: 'Title')
+      assert.match(d.el, innerHTML: 'Body')
+
+      $buttons = d.$el.find('button.btn')
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Cancel')
       assert.match($buttons.text(), 'Ok')
@@ -239,17 +255,15 @@ buster.testCase 'Bootstrap.Dialog',
 
     'calls .dialog with default title': ->
       prompt()
-      assert.calledOnceWith(@dialogSpy, 'Please enter a value')
+      assert.match(@dialogSpy.args[0][0], title: 'Please enter a value')
 
     'does not turn undefined body into "undefined" string': ->
       prompt()
-      assert.calledOnceWith(@dialogSpy, 'Please enter a value')
-      refute.match(@dialogSpy.args[0][1], 'undefined')
+      assert.match(@dialogSpy.args[0][0], title: 'Please enter a value', body: '')
 
     'calls .dialog with title and body': ->
-      prompt('Title', 'Body')
-      assert.calledOnceWith(@dialogSpy, 'Title')
-      assert.match(@dialogSpy.args[0][1], 'Body')
+      prompt(title: 'Title', body: 'Body')
+      assert.match(@dialogSpy.args[0][0], title: 'Title', body: 'Body')
 
     'returns same as .dialog': ->
       assert(@dialogSpy.returned(prompt()))
