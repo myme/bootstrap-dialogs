@@ -9,12 +9,12 @@
 
   ESC = 27;
 
-  mkbutton = function(text, isPrimary) {
+  mkbutton = function(text, btnClass) {
     var $btn;
 
     $btn = $('<button type="button" class="btn">').html(text);
-    if (isPrimary) {
-      $btn.addClass('btn-primary');
+    if (btnClass) {
+      $btn.addClass("btn-" + btnClass);
     }
     return $btn;
   };
@@ -43,19 +43,26 @@
   };
 
   exports = Bootstrap.Dialogs = {
-    alert: function(title, body) {
-      var promise, returnHandler;
+    alert: function(options) {
+      var body, okClass, promise, returnHandler, title;
 
-      if (title == null) {
-        title = 'Alert';
+      if (options == null) {
+        options = {};
       }
-      promise = exports.dialog(title, body, [
-        [
-          mkbutton('Ok', true), function() {
-            return promise.resolve();
-          }
+      title = options.title || 'Alert';
+      body = options.body;
+      okClass = options.danger ? 'danger' : 'primary';
+      promise = exports.dialog({
+        title: title,
+        body: body,
+        buttons: [
+          [
+            mkbutton('Ok', okClass), function() {
+              return promise.resolve();
+            }
+          ]
         ]
-      ]);
+      });
       returnHandler = function(e) {
         if (e.which === RETURN) {
           return promise.resolve();
@@ -66,29 +73,41 @@
         return $('body').off('keyup', returnHandler);
       });
     },
-    confirm: function(title, body) {
-      var promise;
+    confirm: function(options) {
+      var body, okClass, promise, title;
 
-      if (title == null) {
-        title = 'Please confirm';
+      if (options == null) {
+        options = {};
       }
-      return promise = exports.dialog(title, body, [
-        [
-          'Cancel', function() {
-            return promise.reject();
-          }
-        ], [
-          mkbutton('Ok', true), function() {
-            return promise.resolve();
-          }
+      title = options.title || 'Please confirm';
+      body = options.body;
+      okClass = options.danger ? 'danger' : 'primary';
+      return promise = exports.dialog({
+        title: title,
+        body: body,
+        buttons: [
+          [
+            'Cancel', function() {
+              return promise.reject();
+            }
+          ], [
+            mkbutton('Ok', okClass), function() {
+              return promise.resolve();
+            }
+          ]
         ]
-      ]);
+      });
     },
     dialog: function(title, body, buttons) {
       var $closeButton, $el, escHandler, promise;
 
       if (buttons == null) {
         buttons = [];
+      }
+      if (typeof title === 'object') {
+        body = title.body;
+        buttons = title.buttons || [];
+        title = title.title;
       }
       $closeButton = $('<button type="button" class="close" data-dismiss="modal"\n  aria-hidden="true">&times;</button>');
       $el = $('<div class="modal hide fade">').html([$('<div class="modal-header">').html([$closeButton, $('<h3>').html(title)]), body ? $('<div class="modal-body">').html(body) : '', $('<div class="modal-footer">').html(normalizeButtons(buttons))]);
@@ -114,15 +133,15 @@
       });
       return promise;
     },
-    prompt: function(title, body) {
-      var $input, keyup, promise, reject, resolve;
+    prompt: function(options) {
+      var $input, body, keyup, okClass, promise, reject, resolve, title;
 
-      if (title == null) {
-        title = 'Please enter a value';
+      if (options == null) {
+        options = {};
       }
-      if (body == null) {
-        body = '';
-      }
+      title = options.title || 'Please enter a value';
+      body = options.body || '';
+      okClass = options.danger ? 'danger' : 'primary';
       resolve = function() {
         return promise.resolve($input.val());
       };
@@ -135,7 +154,11 @@
         }
       };
       $input = $('<input type="text">');
-      promise = exports.dialog(title, [body, $input], [['Cancel', reject], [mkbutton('Ok', true), resolve]]);
+      promise = exports.dialog({
+        title: title,
+        body: [body, $input],
+        buttons: [['Cancel', reject], [mkbutton('Ok', okClass), resolve]]
+      });
       $('body').on('keyup', keyup);
       promise.always(function() {
         return $('body').off('keyup', keyup);
