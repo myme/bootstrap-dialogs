@@ -18,12 +18,17 @@ Pretty similar to [Bootbox](http://bootboxjs.com/), yet using
 Usage
 -----
 
+`alert`, `confirm` and `prompt` all support custom title and body. Additionally,
+they support setting the button text and severity (default and danger at the moment).
+
 ```javascript
+// Alert dialog with custom title and body
 Bootstrap.Dialogs.alert({ title: 'Alert title', body: 'Alert body' })
   .done(function () {
     ...
   });
 
+// Confirm dialog with default text
 Bootstrap.Dialogs.confirm()
   .done(function () {
     ...
@@ -32,6 +37,7 @@ Bootstrap.Dialogs.confirm()
     ...
   });
 
+// Prompt dialog with custom title and body
 Bootstrap.Dialogs.prompt({ title: 'What is your name?', body: 'Please enter your name' })
   .done(function (name) {
     ...
@@ -39,6 +45,12 @@ Bootstrap.Dialogs.prompt({ title: 'What is your name?', body: 'Please enter your
   .fail(function () {
     ...
   });
+  
+// Confirm dialog with custom button text
+Bootstrap.Dialogs.confirm({ ok: 'Confirm', cancel: 'Abort' });
+  
+// Critical alert dialog
+Bootstrap.Dialogs.alert({ danger: true });
 ```
 
 Development
@@ -75,6 +87,10 @@ In order to upgrade the distribution files bundled in the repo, run `npm run-scr
 
 Release notes
 -------------
+
+### v0.2.1
+
+ * Fix #3: Allow setting alert, confirm and prompt button texts.
 
 ### v0.2.0
 
