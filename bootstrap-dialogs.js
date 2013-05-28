@@ -44,20 +44,21 @@
 
   exports = Bootstrap.Dialogs = {
     alert: function(options) {
-      var body, okClass, promise, returnHandler, title;
+      var body, okClass, okText, promise, returnHandler, title;
 
       if (options == null) {
         options = {};
       }
       title = options.title || 'Alert';
       body = options.body;
+      okText = options.ok || 'Ok';
       okClass = options.danger ? 'danger' : 'primary';
       promise = exports.dialog({
         title: title,
         body: body,
         buttons: [
           [
-            mkbutton('Ok', okClass), function() {
+            mkbutton(okText, okClass), function() {
               return promise.resolve();
             }
           ]
@@ -74,24 +75,26 @@
       });
     },
     confirm: function(options) {
-      var body, okClass, promise, title;
+      var body, cancelText, okClass, okText, promise, title;
 
       if (options == null) {
         options = {};
       }
       title = options.title || 'Please confirm';
       body = options.body;
+      okText = options.ok || 'Ok';
       okClass = options.danger ? 'danger' : 'primary';
+      cancelText = options.cancel || 'Cancel';
       return promise = exports.dialog({
         title: title,
         body: body,
         buttons: [
           [
-            'Cancel', function() {
+            cancelText, function() {
               return promise.reject();
             }
           ], [
-            mkbutton('Ok', okClass), function() {
+            mkbutton(okText, okClass), function() {
               return promise.resolve();
             }
           ]
@@ -134,14 +137,16 @@
       return promise;
     },
     prompt: function(options) {
-      var $input, body, keyup, okClass, promise, reject, resolve, title;
+      var $input, body, cancelText, keyup, okClass, okText, promise, reject, resolve, title;
 
       if (options == null) {
         options = {};
       }
       title = options.title || 'Please enter a value';
       body = options.body || '';
+      okText = options.ok || 'Ok';
       okClass = options.danger ? 'danger' : 'primary';
+      cancelText = options.cancel || 'Cancel';
       resolve = function() {
         return promise.resolve($input.val());
       };
@@ -157,7 +162,7 @@
       promise = exports.dialog({
         title: title,
         body: [body, $input],
-        buttons: [['Cancel', reject], [mkbutton('Ok', okClass), resolve]]
+        buttons: [[cancelText, reject], [mkbutton(okText, okClass), resolve]]
       });
       $('body').on('keyup', keyup);
       promise.always(function() {
