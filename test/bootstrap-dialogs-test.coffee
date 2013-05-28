@@ -44,6 +44,11 @@ buster.testCase 'Bootstrap.Dialog',
       assert.equals($btn.length, 1)
       assert.equals($btn.text(), 'Ok')
 
+    'can set text of "OK" button': ->
+      $btn = alert(ok: 'Dismiss').$el.find('button.btn')
+      assert.equals($btn.length, 1)
+      assert.equals($btn.text(), 'Dismiss')
+
     '"Ok" button has class btn-primary': ->
       $btn = alert().$el.find('button.btn')
       assert.className($btn[0], 'btn-primary')
@@ -97,6 +102,12 @@ buster.testCase 'Bootstrap.Dialog',
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Cancel')
       assert.match($buttons.text(), 'Ok')
+
+    'can set text of "Cancel" and "Ok" button': ->
+      $buttons = confirm(ok: 'Confirm', cancel: 'Abort').$el.find('button.btn')
+      assert.equals($buttons.length, 2)
+      assert.match($buttons.text(), 'Abort')
+      assert.match($buttons.text(), 'Confirm')
 
     '"Ok" button has class btn-primary': ->
       $btn = confirm().$el.find('button.btn:contains("Ok")')
@@ -283,6 +294,12 @@ buster.testCase 'Bootstrap.Dialog',
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Cancel')
       assert.match($buttons.text(), 'Ok')
+
+    'can set text of "Cancel" and "Ok" button': ->
+      $buttons = prompt(ok: 'Submit', cancel: 'Abort').$el.find('button.btn')
+      assert.equals($buttons.length, 2)
+      assert.match($buttons.text(), 'Abort')
+      assert.match($buttons.text(), 'Submit')
 
     '"Ok" button has class btn-primary': ->
       $btn = prompt().$el.find('button.btn:contains("Ok")')

@@ -32,12 +32,13 @@ exports = Bootstrap.Dialogs =
   alert: (options={}) ->
     title = options.title or 'Alert'
     body = options.body
+    okText = options.ok or 'Ok'
     okClass = if options.danger then 'danger' else 'primary'
     promise = exports.dialog
       title: title
       body: body
       buttons: [
-        [ mkbutton('Ok', okClass), -> promise.resolve() ]
+        [ mkbutton(okText, okClass), -> promise.resolve() ]
       ]
     returnHandler = (e) -> promise.resolve() if e.which is RETURN
     $('body').on('keyup', returnHandler)
@@ -47,13 +48,15 @@ exports = Bootstrap.Dialogs =
   confirm: (options={}) ->
     title = options.title or 'Please confirm'
     body = options.body
+    okText = options.ok or 'Ok'
     okClass = if options.danger then 'danger' else 'primary'
+    cancelText = options.cancel or 'Cancel'
     promise = exports.dialog
       title: title
       body: body
       buttons: [
-        [ 'Cancel', -> promise.reject() ]
-        [ mkbutton('Ok', okClass), -> promise.resolve() ]
+        [ cancelText, -> promise.reject() ]
+        [ mkbutton(okText, okClass), -> promise.resolve() ]
       ]
 
   dialog: (title, body, buttons=[]) ->
@@ -101,7 +104,9 @@ exports = Bootstrap.Dialogs =
   prompt: (options={}) ->
     title = options.title or 'Please enter a value'
     body = options.body or ''
+    okText = options.ok or 'Ok'
     okClass = if options.danger then 'danger' else 'primary'
+    cancelText = options.cancel or 'Cancel'
 
     resolve = -> promise.resolve($input.val())
     reject = -> promise.reject()
@@ -113,8 +118,8 @@ exports = Bootstrap.Dialogs =
       title: title
       body: [ body, $input ]
       buttons: [
-        [ 'Cancel', reject ]
-        [ mkbutton('Ok', okClass), resolve ]
+        [ cancelText, reject ]
+        [ mkbutton(okText, okClass), resolve ]
       ]
 
     $('body').on('keyup', keyup)
