@@ -51,6 +51,7 @@ exports = Bootstrap.Dialogs =
     okText = options.ok or 'Ok'
     okClass = if options.danger then 'danger' else 'primary'
     cancelText = options.cancel or 'Cancel'
+
     promise = exports.dialog
       title: title
       body: body
@@ -58,6 +59,14 @@ exports = Bootstrap.Dialogs =
         [ cancelText, -> promise.reject() ]
         [ mkbutton(okText, okClass), -> promise.resolve() ]
       ]
+
+    if options.return
+      returnHandler = (e) -> promise.resolve() if e.which is RETURN
+      $('body').on('keyup', returnHandler)
+      promise.always ->
+        $('body').off('keyup', returnHandler)
+
+    promise
 
   dialog: (title, body, buttons=[]) ->
     if typeof title is 'object'

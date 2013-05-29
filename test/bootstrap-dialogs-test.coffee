@@ -117,6 +117,18 @@ buster.testCase 'Bootstrap.Dialog',
       $btn = confirm(danger: true).$el.find('button.btn:contains("Ok")')
       assert.className($btn[0], 'btn-danger')
 
+    'pressing Return does not do anything by default': ->
+      spy = @spy()
+      promise = confirm().done(spy)
+      triggerKey(RETURN)
+      refute.called(spy)
+
+    'pressing Return resolves if "return" option is true': ->
+      spy = @spy()
+      promise = confirm(return: true).done(spy)
+      triggerKey(RETURN)
+      assert.calledOnce(spy)
+
     'clicking "Ok" button triggers .resolve': ->
       promise = confirm()
       spy = @spy(promise, 'resolve')
