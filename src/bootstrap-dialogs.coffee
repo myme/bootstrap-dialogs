@@ -73,16 +73,16 @@ exports = Bootstrap.Dialogs =
     body = options.body
     buttons = options.buttons or []
 
-    $closeButton = $('''
-      <button type="button" class="close" data-dismiss="modal"
-        aria-hidden="true">&times;</button>
-    ''')
+    titleEls = [ $('<h3>').html(title) ]
+    if not options.noButtons
+      $closeButton = $('''
+        <button type="button" class="close" data-dismiss="modal"
+          aria-hidden="true">&times;</button>
+      ''')
+      titleEls.unshift($closeButton)
 
     $el = $('<div class="modal hide fade">').html([
-      $('<div class="modal-header">').html([
-        $closeButton
-        $('<h3>').html(title)
-      ])
+      $('<div class="modal-header">').html(titleEls)
       if body
         $('<div class="modal-body">').html(body)
       else
@@ -103,7 +103,7 @@ exports = Bootstrap.Dialogs =
       $el.modal('hide')
       $el.remove()
 
-    $closeButton.click(-> promise.reject())
+    $closeButton?.click(-> promise.reject())
     $('body').on('keyup', escHandler)
 
     $el.modal(backdrop: 'static')

@@ -18,7 +18,7 @@ triggerKey = (which, el='body') ->
   $(el).trigger(event)
 
 
-buster.testCase 'Bootstrap.Dialog',
+buster.testCase 'Bootstrap.Dialogs',
 
   setUp: ->
     @dialogSpy = @spy(Bootstrap.Dialogs, 'dialog')
@@ -171,6 +171,13 @@ buster.testCase 'Bootstrap.Dialog',
     'does not add a body if undefined': ->
       assert.equals(
         dialog(title: 'Title').$el.find('.modal-body').length, 0)
+
+    'adds close button': ->
+      assert.equals(dialog().$el.find('button.close').length, 1)
+
+    'does not add close button with "noButtons"': ->
+      assert.equals(
+        dialog(noButtons: true).$el.find('button.close').length, 0)
 
     'adds buttons': ->
       $el = dialog(
