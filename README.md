@@ -88,6 +88,11 @@ In order to upgrade the distribution files bundled in the repo, run `npm run-scr
 Release notes
 -------------
 
+### v0.2.3
+
+ * Remove positional arguments support from .dialog.
+ * Add `noButtons` option to .dialog.
+
 ### v0.2.2
 
  * Add `return` option to allow confirm dialogs to optionally be

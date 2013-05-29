@@ -113,19 +113,21 @@
       }
       return promise;
     },
-    dialog: function(title, body, buttons) {
-      var $closeButton, $el, escHandler, promise;
+    dialog: function(options) {
+      var $closeButton, $el, body, buttons, escHandler, promise, title, titleEls;
 
-      if (buttons == null) {
-        buttons = [];
+      if (options == null) {
+        options = {};
       }
-      if (typeof title === 'object') {
-        body = title.body;
-        buttons = title.buttons || [];
-        title = title.title;
+      title = options.title;
+      body = options.body;
+      buttons = options.buttons || [];
+      titleEls = [$('<h3>').html(title)];
+      if (!options.noButtons) {
+        $closeButton = $('<button type="button" class="close" data-dismiss="modal"\n  aria-hidden="true">&times;</button>');
+        titleEls.unshift($closeButton);
       }
-      $closeButton = $('<button type="button" class="close" data-dismiss="modal"\n  aria-hidden="true">&times;</button>');
-      $el = $('<div class="modal hide fade">').html([$('<div class="modal-header">').html([$closeButton, $('<h3>').html(title)]), body ? $('<div class="modal-body">').html(body) : '', $('<div class="modal-footer">').html(normalizeButtons(buttons))]);
+      $el = $('<div class="modal hide fade">').html([$('<div class="modal-header">').html(titleEls), body ? $('<div class="modal-body">').html(body) : '', $('<div class="modal-footer">').html(normalizeButtons(buttons))]);
       promise = $.Deferred();
       promise.el = $el[0];
       promise.$el = $el;
@@ -139,9 +141,11 @@
         $el.modal('hide');
         return $el.remove();
       });
-      $closeButton.click(function() {
-        return promise.reject();
-      });
+      if ($closeButton != null) {
+        $closeButton.click(function() {
+          return promise.reject();
+        });
+      }
       $('body').on('keyup', escHandler);
       $el.modal({
         backdrop: 'static'
