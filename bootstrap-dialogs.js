@@ -75,7 +75,7 @@
       });
     },
     confirm: function(options) {
-      var body, cancelText, okClass, okText, promise, title;
+      var body, cancelText, okClass, okText, promise, returnHandler, title;
 
       if (options == null) {
         options = {};
@@ -85,7 +85,7 @@
       okText = options.ok || 'Ok';
       okClass = options.danger ? 'danger' : 'primary';
       cancelText = options.cancel || 'Cancel';
-      return promise = exports.dialog({
+      promise = exports.dialog({
         title: title,
         body: body,
         buttons: [
@@ -100,6 +100,18 @@
           ]
         ]
       });
+      if (options["return"]) {
+        returnHandler = function(e) {
+          if (e.which === RETURN) {
+            return promise.resolve();
+          }
+        };
+        $('body').on('keyup', returnHandler);
+        promise.always(function() {
+          return $('body').off('keyup', returnHandler);
+        });
+      }
+      return promise;
     },
     dialog: function(title, body, buttons) {
       var $closeButton, $el, escHandler, promise;
