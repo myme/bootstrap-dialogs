@@ -88,6 +88,11 @@ In order to upgrade the distribution files bundled in the repo, run `npm run-scr
 Release notes
 -------------
 
+### v0.2.2
+
+ * Add `return` option to allow confirm dialogs to optionally be
+   resolvable by pressing the return key.
+
 ### v0.2.1
 
  * Fix #3: Allow setting alert, confirm and prompt button texts.
