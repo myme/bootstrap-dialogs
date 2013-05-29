@@ -68,11 +68,10 @@ exports = Bootstrap.Dialogs =
 
     promise
 
-  dialog: (title, body, buttons=[]) ->
-    if typeof title is 'object'
-      body = title.body
-      buttons = title.buttons or []
-      title = title.title
+  dialog: (options={}) ->
+    title = options.title
+    body = options.body
+    buttons = options.buttons or []
 
     $closeButton = $('''
       <button type="button" class="close" data-dismiss="modal"

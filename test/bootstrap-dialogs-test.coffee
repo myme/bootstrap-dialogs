@@ -166,47 +166,33 @@ buster.testCase 'Bootstrap.Dialog',
       assert.className(dialog().el, 'modal')
 
     'adds title to modal element': ->
-      assert.match(dialog('Foobar').el, innerHTML: 'Foobar')
+      assert.match(dialog(title: 'Foobar').el, innerHTML: 'Foobar')
 
     'does not add a body if undefined': ->
       assert.equals(
-        dialog('Title').$el.find('.modal-body').length, 0)
+        dialog(title: 'Title').$el.find('.modal-body').length, 0)
 
     'adds buttons': ->
-      $el = dialog('Title', 'Body', [
-        'Cancel', 'Ok'
-      ]).$el
-      $buttons = $el.find('button.btn')
-      assert.equals($buttons.length, 2)
-      assert.match($buttons.text(), 'Cancel')
-      assert.match($buttons.text(), 'Ok')
-
-    'supports arguments passed in as hash': ->
-      d = dialog
+      $el = dialog(
         title: 'Title'
         body: 'Body'
-        buttons: [
-          'Cancel', 'Ok'
-        ]
-
-      assert.match(d.el, innerHTML: 'Title')
-      assert.match(d.el, innerHTML: 'Body')
-
-      $buttons = d.$el.find('button.btn')
+        buttons: [ 'Cancel', 'Ok' ]
+      ).$el
+      $buttons = $el.find('button.btn')
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Cancel')
       assert.match($buttons.text(), 'Ok')
 
     'adds handlers to buttons': ->
       spy = @spy()
-      dialog('Title', 'Body', [[ 'Ok', spy ]])
+      dialog(title: 'Title', body: 'Body', buttons: [[ 'Ok', spy ]])
         .$el
         .find('button.btn')
         .click()
       assert.calledOnce(spy)
 
     'buttons can be DOM elements': ->
-      $el = dialog('Title', 'Body', [
+      $el = dialog(title: 'Title', body: 'Body', buttons: [
         $('<button class="btn">').html('Ok')[0]
       ]).$el
       $buttons = $el.find('button.btn')
@@ -214,7 +200,7 @@ buster.testCase 'Bootstrap.Dialog',
       assert.equals($buttons.text(), 'Ok')
 
     'buttons can be jQuery object': ->
-      $el = dialog('Title', 'Body', [
+      $el = dialog(title: 'Title', body: 'Body', buttons: [
         $('<button class="btn">').html('Ok')
       ]).$el
       $buttons = $el.find('button.btn')
@@ -223,7 +209,7 @@ buster.testCase 'Bootstrap.Dialog',
 
     'adds body to modal element': ->
       assert.match(
-        dialog('Foo Title', 'Bar Body').el
+        dialog(title: 'Foo Title', body: 'Bar Body').el
         innerHTML: 'Bar Body')
 
     'calls $.fn.modal on proper element': ->
