@@ -21,7 +21,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "bower": "~0.8.5",
+    "bower": "~0.9.2",
     "buster": "~0.6.12",
     "grunt": "~0.4.1",
     "grunt-buster": "~0.1.2",
