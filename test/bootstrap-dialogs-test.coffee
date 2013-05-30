@@ -260,6 +260,12 @@ buster.testCase 'Bootstrap.Dialogs',
       triggerKey(ESC)
       assert.calledOnce(spy)
 
+    'truthy "lock" disables ESC closing': ->
+      spy = @spy()
+      dialog(lock: true).fail(spy)
+      triggerKey(ESC)
+      refute.called(spy)
+
     '.reject removes ESC key handler from body': ->
       promise = dialog().reject()
       spy = @spy(promise, 'reject')

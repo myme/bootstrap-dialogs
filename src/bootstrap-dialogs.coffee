@@ -96,15 +96,16 @@ exports = Bootstrap.Dialogs =
     promise.el = $el[0]
     promise.$el = $el
 
-    escHandler = (e) -> promise.reject() if e.which is ESC
+    if not options.lock
+      escHandler = (e) -> promise.reject() if e.which is ESC
 
     promise.always ->
-      $('body').off('keyup', escHandler)
+      $('body').off('keyup', escHandler) if escHandler
       $el.modal('hide')
       $el.remove()
 
     $closeButton?.click(-> promise.reject())
-    $('body').on('keyup', escHandler)
+    $('body').on('keyup', escHandler) if escHandler
 
     $el.modal(backdrop: 'static')
     promise
