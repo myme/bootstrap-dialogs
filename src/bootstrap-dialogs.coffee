@@ -120,9 +120,9 @@ exports = Bootstrap.Dialogs =
     $('body').on('keyup', escHandler) if escHandler
 
     if options.lock
-      $el.modal(backdrop: 'static')
+      $el.modal(backdrop: 'static', keyboard: false)
     else
-      $el.modal()
+      $el.modal(keyboard: false)
 
     promise
 

@@ -268,7 +268,7 @@ buster.testCase 'Bootstrap.Dialogs',
     'truthy "lock" sets static backdrop': ->
       spy = @spy($.fn, 'modal')
       dialog(lock: true)
-      assert.calledOnceWith(spy, backdrop: 'static')
+      assert.calledOnceWith(spy, backdrop: 'static', keyboard: false)
 
     'pressing ESC .rejects the modal': ->
       spy = @spy()
