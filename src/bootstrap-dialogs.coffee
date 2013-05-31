@@ -30,16 +30,20 @@ normalizeButtons = (buttons) ->
 exports = Bootstrap.Dialogs =
 
   alert: (options={}) ->
-    title = options.title or 'Alert'
-    body = options.body
-    okText = options.ok or 'Ok'
+    defaultOptions =
+      title: 'Alert'
+      ok: 'Ok'
+      danger: false
+    options = $.extend(defaultOptions, options)
+
     okClass = if options.danger then 'danger' else 'primary'
     promise = exports.dialog
-      title: title
-      body: body
+      title: options.title
+      body: options.body
       buttons: [
-        [ mkbutton(okText, okClass), -> promise.resolve() ]
+        [ mkbutton(options.ok, okClass), -> promise.resolve() ]
       ]
+
     returnHandler = (e) -> promise.resolve() if e.which is RETURN
     $('body').on('keyup', returnHandler)
     promise.always ->
