@@ -175,10 +175,6 @@ buster.testCase 'Bootstrap.Dialogs',
     'adds close button': ->
       assert.equals(dialog().$el.find('button.close').length, 1)
 
-    'does not add close button with "noButtons"': ->
-      assert.equals(
-        dialog(noButtons: true).$el.find('button.close').length, 0)
-
     'adds buttons': ->
       $el = dialog(
         title: 'Title'
@@ -224,11 +220,6 @@ buster.testCase 'Bootstrap.Dialogs',
       $el = dialog().$el
       assert.calledOn(spy, $el)
 
-    'sets a static backdrop': ->
-      spy = @spy($.fn, 'modal')
-      dialog()
-      assert.calledOnceWith(spy, backdrop: 'static')
-
     '.resolve closes modal': ->
       promise = dialog()
       spy = @spy($.fn, 'modal')
@@ -249,10 +240,27 @@ buster.testCase 'Bootstrap.Dialogs',
 
     'has close button by default': ->
       spy = @spy()
-      promise = dialog()
-      promise.fail(spy)
-      promise.$el.find('button.close').click()
+      dialog()
+        .fail(spy)
+        .$el.find('button.close').click()
       assert.calledOnce(spy)
+
+    'has no close button with truthy "lock" option': ->
+      spy = @spy()
+      dialog(lock: true)
+        .fail(spy)
+        .$el.find('button.close').click()
+      refute.called(spy)
+
+    'does not use static backdrop by default': ->
+      spy = @spy($.fn, 'modal')
+      dialog()
+      assert.calledOnce(spy)
+
+    'truthy "lock" sets static backdrop': ->
+      spy = @spy($.fn, 'modal')
+      dialog(lock: true)
+      assert.calledOnceWith(spy, backdrop: 'static')
 
     'pressing ESC .rejects the modal': ->
       spy = @spy()

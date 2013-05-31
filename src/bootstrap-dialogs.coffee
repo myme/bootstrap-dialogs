@@ -81,7 +81,7 @@ exports = Bootstrap.Dialogs =
     buttons = options.buttons or []
 
     titleEls = [ $('<h3>').html(title) ]
-    if not options.noButtons
+    if not options.lock
       $closeButton = $('''
         <button type="button" class="close" data-dismiss="modal"
           aria-hidden="true">&times;</button>
@@ -114,7 +114,10 @@ exports = Bootstrap.Dialogs =
     $closeButton?.click(-> promise.reject())
     $('body').on('keyup', escHandler) if escHandler
 
-    $el.modal(backdrop: 'static')
+    if options.lock
+      $el.modal(backdrop: 'static')
+    else
+      $el.modal()
     promise
 
   prompt: (options={}) ->
