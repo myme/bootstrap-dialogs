@@ -105,6 +105,10 @@ exports = Bootstrap.Dialogs =
     promise.el = $el[0]
     promise.$el = $el
 
+    $el.on 'hidden', ->
+      if promise.state() is 'pending'
+        promise.reject()
+
     if not options.lock
       escHandler = (e) -> promise.reject() if e.which is ESC
 
@@ -113,13 +117,13 @@ exports = Bootstrap.Dialogs =
       $el.modal('hide')
       $el.remove()
 
-    $closeButton?.click(-> promise.reject())
     $('body').on('keyup', escHandler) if escHandler
 
     if options.lock
       $el.modal(backdrop: 'static')
     else
       $el.modal()
+
     promise
 
   prompt: (options={}) ->
