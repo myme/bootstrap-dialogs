@@ -50,18 +50,21 @@ exports = Bootstrap.Dialogs =
       $('body').off('keyup', returnHandler)
 
   confirm: (options={}) ->
-    title = options.title or 'Please confirm'
-    body = options.body
-    okText = options.ok or 'Ok'
+    defaultOptions =
+      title: 'Please confirm'
+      ok: 'Ok'
+      cancel: 'Cancel'
+      danger: false
+    options = $.extend(defaultOptions, options)
+
     okClass = if options.danger then 'danger' else 'primary'
-    cancelText = options.cancel or 'Cancel'
 
     promise = exports.dialog
-      title: title
-      body: body
+      title: options.title
+      body: options.body
       buttons: [
-        [ cancelText, -> promise.reject() ]
-        [ mkbutton(okText, okClass), -> promise.resolve() ]
+        [ options.cancel, -> promise.reject() ]
+        [ mkbutton(options.ok, okClass), -> promise.resolve() ]
       ]
 
     if options.return
