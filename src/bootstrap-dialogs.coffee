@@ -118,11 +118,14 @@ exports = Bootstrap.Dialogs =
     promise
 
   prompt: (options={}) ->
-    title = options.title or 'Please enter a value'
-    body = options.body or ''
-    okText = options.ok or 'Ok'
+    defaultOptions =
+      title: 'Please enter a value'
+      body: ''
+      ok: 'Ok'
+      cancel: 'Cancel'
+    options = $.extend(defaultOptions, options)
+
     okClass = if options.danger then 'danger' else 'primary'
-    cancelText = options.cancel or 'Cancel'
 
     resolve = -> promise.resolve($input.val())
     reject = -> promise.reject()
@@ -131,11 +134,11 @@ exports = Bootstrap.Dialogs =
     $input = $('<input type="text">')
 
     promise = exports.dialog
-      title: title
-      body: [ body, $input ]
+      title: options.title
+      body: [ options.body, $input ]
       buttons: [
-        [ cancelText, reject ]
-        [ mkbutton(okText, okClass), resolve ]
+        [ options.cancel, reject ]
+        [ mkbutton(options.ok, okClass), resolve ]
       ]
 
     $('body').on('keyup', keyup)
