@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -29,21 +28,33 @@
         </ul>
       </header>
       <section>
-        <h1>Bootstrap Dialogs</h1>
+        <h1>
+<a name="bootstrap-dialogs" class="anchor" href="#bootstrap-dialogs"><span class="octicon octicon-link"></span></a>Bootstrap Dialogs</h1>
+
+<p><a href="https://travis-ci.org/myme/bootstrap-dialogs"><img src="https://travis-ci.org/myme/bootstrap-dialogs.png?branch=master" alt="Build Status"></a></p>
+
+<h2>
+<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h2>
 
 <p>Asynchronous modal dialogs for the synchronous <code>window.alert</code>, <code>window.confirm</code>
 and <code>window.prompt</code>, styled and managed by <a href="http://twitter.github.com/bootstrap">Twitter Bootstrap</a>.
 Pretty similar to <a href="http://bootboxjs.com/">Bootbox</a>, yet using
 <a href="http://jquery.com">jQuery</a>'s Deferred objects.</p>
 
-<h3>Usage</h3>
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<div class="highlight"><pre><span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="s1">'Alert title'</span><span class="p">,</span> <span class="s1">'Alert body'</span><span class="p">)</span>
+<p><code>alert</code>, <code>confirm</code> and <code>prompt</code> all support custom title and body. Additionally,
+they support setting the button text and severity (default and danger at the moment).</p>
+
+<div class="highlight"><pre><span class="c1">// Alert dialog with custom title and body</span>
+<span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Dialogs</span><span class="p">.</span><span class="nx">alert</span><span class="p">({</span> <span class="nx">title</span><span class="o">:</span> <span class="s1">'Alert title'</span><span class="p">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s1">'Alert body'</span> <span class="p">})</span>
   <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="p">...</span>
   <span class="p">});</span>
 
-<span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">confirm</span><span class="p">()</span>
+<span class="c1">// Confirm dialog with default text</span>
+<span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Dialogs</span><span class="p">.</span><span class="nx">confirm</span><span class="p">()</span>
   <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="p">...</span>
   <span class="p">})</span>
@@ -51,50 +62,106 @@ Pretty similar to <a href="http://bootboxjs.com/">Bootbox</a>, yet using
     <span class="p">...</span>
   <span class="p">});</span>
 
-<span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">prompt</span><span class="p">(</span><span class="s1">'What is your name?'</span><span class="p">,</span> <span class="s1">'Please enter your name'</span><span class="p">)</span>
+<span class="c1">// Prompt dialog with custom title and body</span>
+<span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Dialogs</span><span class="p">.</span><span class="nx">prompt</span><span class="p">({</span> <span class="nx">title</span><span class="o">:</span> <span class="s1">'What is your name?'</span><span class="p">,</span> <span class="nx">body</span><span class="o">:</span> <span class="s1">'Please enter your name'</span> <span class="p">})</span>
   <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">...</span>
   <span class="p">})</span>
   <span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="p">...</span>
   <span class="p">});</span>
+
+<span class="c1">// Confirm dialog with custom button text</span>
+<span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Dialogs</span><span class="p">.</span><span class="nx">confirm</span><span class="p">({</span> <span class="nx">ok</span><span class="o">:</span> <span class="s1">'Confirm'</span><span class="p">,</span> <span class="nx">cancel</span><span class="o">:</span> <span class="s1">'Abort'</span> <span class="p">});</span>
+
+<span class="c1">// Critical alert dialog</span>
+<span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Dialogs</span><span class="p">.</span><span class="nx">alert</span><span class="p">({</span> <span class="nx">danger</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
 </pre></div>
 
-<p>
-  <h3>Bootstrap Dialog Examples</h3>
+<h2>
+<a name="development" class="anchor" href="#development"><span class="octicon octicon-link"></span></a>Development</h2>
 
-  <p class="well">
-    <button class="btn show-alert">Show Alert</button>
-    <button class="btn show-confirm">Show Confirm</button>
-    <button class="btn show-prompt">Show Prompt</button>
-    <button class="btn show-custom">Custom</button>
-  </p>
+<p>TL;DR: <code>npm install &amp;&amp; npm test</code></p>
 
-  <div class="alert alert-success hide fade in">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    <strong></strong>
-  </div>
+<p>Install <a href="http://nodejs.org">Node</a> and <a href="http://npmjs.org">Npm</a> using your packet
+manager of choice.</p>
 
-  <div class="alert alert-error hide fade in">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    <strong></strong>
-  </div>
-</p>
+<p>Install development dependencies:</p>
 
-<h3>Release notes</h3>
+<pre><code>npm install
+</code></pre>
 
-<h4>v0.1.0</h4>
+<p>Build and run the tests:</p>
+
+<pre><code>npm test
+</code></pre>
+
+<p>Start a development cycle listening for changes to files running a simple
+static server, CoffeeScript linting + compilation, and the test suite:</p>
+
+<pre><code>npm start
+</code></pre>
+
+<h2>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
+
+<p>To see the examples in action, issue <code>npm install &amp;&amp; npm start</code> and access
+<a href="http://localhost:8000/examples/">http://localhost:8000/examples/</a>.</p>
+
+<h2>
+<a name="upgrade-the-distribution-files" class="anchor" href="#upgrade-the-distribution-files"><span class="octicon octicon-link"></span></a>Upgrade the distribution files</h2>
+
+<p>In order to upgrade the distribution files bundled in the repo, run <code>npm run-script dist</code>.</p>
+
+<h2>
+<a name="release-notes" class="anchor" href="#release-notes"><span class="octicon octicon-link"></span></a>Release notes</h2>
+
+<h3>
+<a name="v024" class="anchor" href="#v024"><span class="octicon octicon-link"></span></a>v0.2.4</h3>
+
+<ul>
+<li>Fix #5: Allow clicking the backdrop to dismiss (unless "lock" is true).</li>
+<li>Fix #4: Add "lock" option to disable ESC closing.</li>
+<li>Replace <code>noButtons</code> with <code>lock</code> option.</li>
+</ul><h3>
+<a name="v023" class="anchor" href="#v023"><span class="octicon octicon-link"></span></a>v0.2.3</h3>
+
+<ul>
+<li>Remove positional arguments support from .dialog.</li>
+<li>Add <code>noButtons</code> option to .dialog.</li>
+</ul><h3>
+<a name="v022" class="anchor" href="#v022"><span class="octicon octicon-link"></span></a>v0.2.2</h3>
+
+<ul>
+<li>Add <code>return</code> option to allow confirm dialogs to optionally be
+resolvable by pressing the return key.</li>
+</ul><h3>
+<a name="v021" class="anchor" href="#v021"><span class="octicon octicon-link"></span></a>v0.2.1</h3>
+
+<ul>
+<li>Fix #3: Allow setting alert, confirm and prompt button texts.</li>
+</ul><h3>
+<a name="v020" class="anchor" href="#v020"><span class="octicon octicon-link"></span></a>v0.2.0</h3>
+
+<ul>
+<li>Update API's argument passing style to be objects rather
+than regular argument list.</li>
+<li>Fix #2: Add option to make the 'OK' button take on the btn-danger class.</li>
+</ul><h3>
+<a name="v010" class="anchor" href="#v010"><span class="octicon octicon-link"></span></a>v0.1.0</h3>
 
 <ul>
 <li>Add keyboard bindings for Return and Escape</li>
-</ul><h4>v0.0.3</h4>
+</ul><h3>
+<a name="v003" class="anchor" href="#v003"><span class="octicon octicon-link"></span></a>v0.0.3</h3>
 
 <ul>
 <li>Add grunt-cli as a dependency</li>
 <li>Depend on jQuery 1.8.3 to match Bootstrap</li>
 <li>Allow buttons to be jQuery objects or DOM elements</li>
 <li>Make "Ok" buttons primary</li>
-</ul><h4>v0.0.2</h4>
+</ul><h3>
+<a name="v002" class="anchor" href="#v002"><span class="octicon octicon-link"></span></a>v0.0.2</h3>
 
 <ul>
 <li>Add Bootstrap and jQuery as component dependencies.</li>
@@ -102,11 +169,13 @@ Pretty similar to <a href="http://bootboxjs.com/">Bootbox</a>, yet using
 <li>Give prompt input focus.</li>
 <li>Wrap titles in h3.</li>
 <li>Add close button by default.</li>
-</ul><h4>v0.0.1</h4>
+</ul><h3>
+<a name="v001" class="anchor" href="#v001"><span class="octicon octicon-link"></span></a>v0.0.1</h3>
 
 <ul>
 <li>Initial release.</li>
-</ul><h3>License</h3>
+</ul><h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>Distrubuted under the <a href="http://en.wikipedia.org/wiki/ISC_license">ISC</a> license.  Please refer to the
 <a href="LICENSE-ISC">LICENSE</a>.</p>
@@ -118,125 +187,5 @@ Pretty similar to <a href="http://bootboxjs.com/">Bootbox</a>, yet using
     </div>
     <script src="javascripts/scale.fix.js"></script>
     
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-    <script src="javascripts/bootstrap-dialogs.min.js"></script>
-    <script>
-      $(function () {
-
-        function showSuccess(text) {
-          var $el = $('.alert-success');
-          $el.find('strong').text(text);
-          $el.show().delay(1000).fadeOut('slow');
-        }
-
-        function showFailure(text) {
-          var $el = $('.alert-error');
-          $el.find('strong').text(text);
-          $el.show().delay(1000).fadeOut('slow');
-        }
-
-
-        /*
-            Show an alert message.
-         */
-
-        $('.show-alert').click(function () {
-          Bootstrap.Dialogs
-            .alert({ title: 'Some message!', danger: true })
-            .always(function () {
-              showSuccess('Alert dismissed!');
-            });
-        });
-
-
-        /*
-            Show a confirmation dialog.
-         */
-
-        $('.show-confirm').click(function () {
-          Bootstrap.Dialogs
-            .confirm({ title: 'Please confirm', body: 'Can you confirm this?' })
-            .done(function () {
-              showSuccess('You confirmed \\:D/');
-            })
-            .fail(function () {
-              showFailure('You declined :(');
-            });
-        });
-
-
-        /*
-            Show a simple prompt.
-         */
-
-        $('.show-prompt').click(function () {
-          Bootstrap.Dialogs
-            .prompt({ title: 'Please provide some input' })
-            .done(function (text) {
-              if (text) {
-                showSuccess('You typed: ' + text);
-              } else {
-                showFailure("You didn't type anything");
-              }
-            })
-            .fail(function () {
-              showFailure('Input cancelled');
-            });
-        });
-
-
-        /*
-            A more contrived example of customizing possibilites.
-         */
-
-        $('.show-custom').click(function () {
-          var dialog;
-
-          function cancel() {
-            dialog.reject();
-          }
-
-          function ok() {
-            dialog.resolve();
-          }
-
-          var body = $('<div>').html([
-            '<b>Custom body!</b>'
-          ]);
-
-          dialog = Bootstrap.Dialogs
-            .dialog({
-              title: 'Custom title',
-              body: body,
-              buttons: [
-                [ 'CANCEL!', cancel ],
-                $('<button>')
-                  .addClass('btn btn-primary')
-                  .html('OK!')
-                  .click(ok),
-                [
-                  $('<button>')
-                    .addClass('btn btn-danger')
-                    .html('ERROR!'),
-                  function () {
-                    dialog.reject('error');
-                  }
-                ]
-              ]
-            })
-            .done(function () {
-              showSuccess('You clicked "OK!"');
-            })
-            .fail(function (error) {
-              if (error) {
-                showFailure('You clicked "ERROR!"');
-              } else {
-                showFailure('You clicked "CANCEL!"');
-              }
-            })
-        });
-      });
-    </script>
   </body>
 </html>
