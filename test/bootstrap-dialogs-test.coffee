@@ -32,6 +32,14 @@ buster.testCase 'Bootstrap.Dialogs',
       alert()
       assert.match(@dialogSpy.args[0][0], title: 'Alert')
 
+    'calls .dialog with "lock" true by default': ->
+      alert()
+      assert.match(@dialogSpy.args[0][0], lock: true)
+
+    'can override "lock" option': ->
+      alert(lock: false)
+      assert.match(@dialogSpy.args[0][0], lock: false)
+
     'calls .dialog with title and body': ->
       alert(title: 'Title', body: 'Body')
       assert.match(@dialogSpy.args[0][0], title: 'Title', body: 'Body')

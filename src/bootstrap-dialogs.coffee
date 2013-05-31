@@ -33,6 +33,7 @@ exports = Bootstrap.Dialogs =
     defaultOptions =
       title: 'Alert'
       ok: 'Ok'
+      lock: true
       danger: false
     options = $.extend(defaultOptions, options)
 
@@ -40,6 +41,7 @@ exports = Bootstrap.Dialogs =
     promise = exports.dialog
       title: options.title
       body: options.body
+      lock: options.lock
       buttons: [
         [ mkbutton(options.ok, okClass), -> promise.resolve() ]
       ]
