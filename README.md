@@ -6,8 +6,6 @@ Bootstrap Dialogs
 Description
 -----------
 
-[Bootstrap Dialogs](http://myme.github.com/bootstrap-dialogs) on github pages.
-
 Asynchronous modal dialogs for the synchronous `window.alert`, `window.confirm`
 and `window.prompt`, styled and managed by [Twitter Bootstrap][bootstrap].
 Pretty similar to [Bootbox](http://bootboxjs.com/), yet using
