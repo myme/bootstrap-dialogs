@@ -75,7 +75,7 @@ buster.testCase 'Bootstrap.Dialogs',
       triggerKey(RETURN)
       refute.called(spy)
 
-    '.resolve removes ESC key handler from body': ->
+    '.resolve removes Return key handler from body': ->
       promise = alert().resolve()
       spy = @spy(promise, 'resolve')
       triggerKey(RETURN)
@@ -360,7 +360,7 @@ buster.testCase 'Bootstrap.Dialogs',
       triggerKey(RETURN)
       refute.called(spy)
 
-    '.resolve removes ESC key handler from body': ->
+    '.resolve removes Return key handler from body': ->
       promise = prompt().resolve()
       spy = @spy(promise, 'resolve')
       triggerKey(RETURN)
