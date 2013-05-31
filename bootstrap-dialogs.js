@@ -44,21 +44,26 @@
 
   exports = Bootstrap.Dialogs = {
     alert: function(options) {
-      var body, okClass, okText, promise, returnHandler, title;
+      var defaultOptions, okClass, promise, returnHandler;
 
       if (options == null) {
         options = {};
       }
-      title = options.title || 'Alert';
-      body = options.body;
-      okText = options.ok || 'Ok';
+      defaultOptions = {
+        title: 'Alert',
+        ok: 'Ok',
+        lock: true,
+        danger: false
+      };
+      options = $.extend(defaultOptions, options);
       okClass = options.danger ? 'danger' : 'primary';
       promise = exports.dialog({
-        title: title,
-        body: body,
+        title: options.title,
+        body: options.body,
+        lock: options.lock,
         buttons: [
           [
-            mkbutton(okText, okClass), function() {
+            mkbutton(options.ok, okClass), function() {
               return promise.resolve();
             }
           ]
@@ -75,26 +80,29 @@
       });
     },
     confirm: function(options) {
-      var body, cancelText, okClass, okText, promise, returnHandler, title;
+      var defaultOptions, okClass, promise, returnHandler;
 
       if (options == null) {
         options = {};
       }
-      title = options.title || 'Please confirm';
-      body = options.body;
-      okText = options.ok || 'Ok';
+      defaultOptions = {
+        title: 'Please confirm',
+        ok: 'Ok',
+        cancel: 'Cancel',
+        danger: false
+      };
+      options = $.extend(defaultOptions, options);
       okClass = options.danger ? 'danger' : 'primary';
-      cancelText = options.cancel || 'Cancel';
       promise = exports.dialog({
-        title: title,
-        body: body,
+        title: options.title,
+        body: options.body,
         buttons: [
           [
-            cancelText, function() {
+            options.cancel, function() {
               return promise.reject();
             }
           ], [
-            mkbutton(okText, okClass), function() {
+            mkbutton(options.ok, okClass), function() {
               return promise.resolve();
             }
           ]
@@ -123,7 +131,7 @@
       body = options.body;
       buttons = options.buttons || [];
       titleEls = [$('<h3>').html(title)];
-      if (!options.noButtons) {
+      if (!options.lock) {
         $closeButton = $('<button type="button" class="close" data-dismiss="modal"\n  aria-hidden="true">&times;</button>');
         titleEls.unshift($closeButton);
       }
@@ -131,38 +139,54 @@
       promise = $.Deferred();
       promise.el = $el[0];
       promise.$el = $el;
-      escHandler = function(e) {
-        if (e.which === ESC) {
+      $el.on('hidden', function() {
+        if (promise.state() === 'pending') {
           return promise.reject();
         }
-      };
+      });
+      if (!options.lock) {
+        escHandler = function(e) {
+          if (e.which === ESC) {
+            return promise.reject();
+          }
+        };
+      }
       promise.always(function() {
-        $('body').off('keyup', escHandler);
+        if (escHandler) {
+          $('body').off('keyup', escHandler);
+        }
         $el.modal('hide');
         return $el.remove();
       });
-      if ($closeButton != null) {
-        $closeButton.click(function() {
-          return promise.reject();
+      if (escHandler) {
+        $('body').on('keyup', escHandler);
+      }
+      if (options.lock) {
+        $el.modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+      } else {
+        $el.modal({
+          keyboard: false
         });
       }
-      $('body').on('keyup', escHandler);
-      $el.modal({
-        backdrop: 'static'
-      });
       return promise;
     },
     prompt: function(options) {
-      var $input, body, cancelText, keyup, okClass, okText, promise, reject, resolve, title;
+      var $input, defaultOptions, keyup, okClass, promise, reject, resolve;
 
       if (options == null) {
         options = {};
       }
-      title = options.title || 'Please enter a value';
-      body = options.body || '';
-      okText = options.ok || 'Ok';
+      defaultOptions = {
+        title: 'Please enter a value',
+        body: '',
+        ok: 'Ok',
+        cancel: 'Cancel'
+      };
+      options = $.extend(defaultOptions, options);
       okClass = options.danger ? 'danger' : 'primary';
-      cancelText = options.cancel || 'Cancel';
       resolve = function() {
         return promise.resolve($input.val());
       };
@@ -176,9 +200,9 @@
       };
       $input = $('<input type="text">');
       promise = exports.dialog({
-        title: title,
-        body: [body, $input],
-        buttons: [[cancelText, reject], [mkbutton(okText, okClass), resolve]]
+        title: options.title,
+        body: [options.body, $input],
+        buttons: [[options.cancel, reject], [mkbutton(options.ok, okClass), resolve]]
       });
       $('body').on('keyup', keyup);
       promise.always(function() {

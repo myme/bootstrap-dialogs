@@ -88,6 +88,12 @@ In order to upgrade the distribution files bundled in the repo, run `npm run-scr
 Release notes
 -------------
 
+### v0.2.4
+
+ * Fix #5: Allow clicking the backdrop to dismiss (unless "lock" is true).
+ * Fix #4: Add "lock" option to disable ESC closing.
+ * Replace `noButtons` with `lock` option.
+
 ### v0.2.3
 
  * Remove positional arguments support from .dialog.
