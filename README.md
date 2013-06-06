@@ -86,6 +86,10 @@ In order to upgrade the distribution files bundled in the repo, run `npm run-scr
 Release notes
 -------------
 
+### v0.2.5
+
+ * Make Bower dependencies looser.
+
 ### v0.2.4
 
  * Fix #5: Allow clicking the backdrop to dismiss (unless "lock" is true).
