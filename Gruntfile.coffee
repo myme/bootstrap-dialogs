@@ -31,10 +31,12 @@ module.exports = (grunt) ->
         options:
           browsers: ['PhantomJS']
           files: [
+            'components/jquery/jquery.js'
+            'components/bootstrap/js/bootstrap-modal.js'
             'src/**/*.coffee'
             'test/**/*.coffee'
           ]
-          frameworks: ['mocha']
+          frameworks: ['mocha', 'sinon-chai']
           singleRun: true
 
     uglify:
