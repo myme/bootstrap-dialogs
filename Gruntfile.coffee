@@ -4,8 +4,6 @@ module.exports = (grunt) ->
   tests = 'test/**/*.coffee'
 
   grunt.initConfig
-    buster: {} # Defaults
-
     coffee:
       dist:
         files:
@@ -28,8 +26,16 @@ module.exports = (grunt) ->
           'bootstrap-dialogs.js': 'dist/bootstrap-dialogs.js'
           'bootstrap-dialogs.min.js': 'dist/bootstrap-dialogs.min.js'
 
-    jshint:
-      assets: 'buster.js'
+    karma:
+      test:
+        options:
+          browsers: ['PhantomJS']
+          files: [
+            'src/**/*.coffee'
+            'test/**/*.coffee'
+          ]
+          frameworks: ['mocha']
+          singleRun: true
 
     uglify:
       dist:
@@ -40,24 +46,22 @@ module.exports = (grunt) ->
       test:
         files: [
           'Gruntfile.coffee'
-          'buster.js'
           sources
           tests
         ]
         tasks: ['test']
 
-  grunt.loadNpmTasks('grunt-buster')
   grunt.loadNpmTasks('grunt-coffeelint')
   grunt.loadNpmTasks('grunt-contrib-coffee')
   grunt.loadNpmTasks('grunt-contrib-connect')
   grunt.loadNpmTasks('grunt-contrib-copy')
-  grunt.loadNpmTasks('grunt-contrib-jshint')
   grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-contrib-watch')
+  grunt.loadNpmTasks('grunt-karma')
 
-  grunt.registerTask('lint', ['coffeelint', 'jshint'])
+  grunt.registerTask('lint', ['coffeelint'])
   grunt.registerTask('build', ['lint', 'coffee', 'uglify'])
   grunt.registerTask('dist', ['build', 'copy'])
   grunt.registerTask('start', ['connect', 'test', 'watch'])
-  grunt.registerTask('test', ['build', 'buster'])
+  grunt.registerTask('test', ['lint', 'karma:test'])
   grunt.registerTask('default', ['test'])
