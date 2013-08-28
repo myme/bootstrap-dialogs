@@ -32,6 +32,7 @@
     "grunt-contrib-watch": "~0.3.1",
     "grunt-karma": "~0.6.2",
     "karma": "~0.10.2",
+    "karma-chai-plugins": "~0.1.2",
     "karma-chrome-launcher": "~0.1.0",
     "karma-coffee-preprocessor": "~0.1.0",
     "karma-firefox-launcher": "~0.1.0",
@@ -41,7 +42,6 @@
     "karma-phantomjs-launcher": "~0.1.0",
     "karma-requirejs": "~0.1.0",
     "karma-script-launcher": "~0.1.0",
-    "karma-sinon-chai": "~0.1.0",
     "mocha": "~1.12.0"
   }
 }

@@ -36,7 +36,7 @@ module.exports = (grunt) ->
             'src/**/*.coffee'
             'test/**/*.coffee'
           ]
-          frameworks: ['mocha', 'sinon-chai']
+          frameworks: ['mocha', 'chai', 'sinon-chai']
           singleRun: true
 
     uglify:
