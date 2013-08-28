@@ -13,35 +13,41 @@ triggerKey = (which, el='body') ->
   $(el).trigger(event)
 
 
-describe 'Bootstrap.Dialogs', ->
+describe 'Bootstrap.Dialogs', sinon.test ->
 
-  before ->
-    @dialogSpy = sinon.spy(Bootstrap.Dialogs, 'dialog')
+  beforeEach ->
+    @dialogSpy = sinon.stub Bootstrap.Dialogs, 'dialog', ->
+      $.Deferred()
+
+  afterEach ->
+    @dialogSpy.restore()
 
   describe 'alert', ->
 
     it 'is a function', ->
       alert.should.be.a('function')
 
-#    'calls .dialog with default title': ->
-#      alert()
-#      assert.match(@dialogSpy.args[0][0], title: 'Alert')
-#
-#    'calls .dialog with "lock" true by default': ->
-#      alert()
-#      assert.match(@dialogSpy.args[0][0], lock: true)
-#
-#    'can override "lock" option': ->
-#      alert(lock: false)
-#      assert.match(@dialogSpy.args[0][0], lock: false)
-#
-#    'calls .dialog with title and body': ->
-#      alert(title: 'Title', body: 'Body')
-#      assert.match(@dialogSpy.args[0][0], title: 'Title', body: 'Body')
-#
-#    'returns same as .dialog': ->
-#      assert(@dialogSpy.returned(alert()))
-#
+    it 'calls .dialog with default title', ->
+      alert()
+      @dialogSpy.args[0][0].should.have.property('title', 'Alert')
+
+    it 'calls .dialog with "lock" true by default', ->
+      alert()
+      @dialogSpy.args[0][0].should.have.property('lock', true)
+
+    it 'can override "lock" option', ->
+      alert(lock: false)
+      @dialogSpy.args[0][0].should.have.property('lock', false)
+
+    it 'calls .dialog with title and body', ->
+      alert(title: 'Title', body: 'Body')
+      arg = @dialogSpy.args[0][0]
+      arg.should.have.property('title', 'Title')
+      arg.should.have.property('body', 'Body')
+
+    it 'returns the same as .dialog', ->
+      @dialogSpy.returned(alert())
+
 #    'creates modal with one "Ok" button': ->
 #      $btn = alert().$el.find('button.btn')
 #      assert.equals($btn.length, 1)
