@@ -14,15 +14,15 @@ triggerKey = (which, el='body') ->
 
 
 describe 'Bootstrap.Dialogs', ->
-#
-#  before ->
-#    @dialogSpy = sinon.spy(Bootstrap.Dialogs, 'dialog')
-#
+
+  before ->
+    @dialogSpy = sinon.spy(Bootstrap.Dialogs, 'dialog')
+
   describe 'alert', ->
 
     it 'is a function', ->
-      assert.isFunction(alert)
-#
+      alert.should.be.a('function')
+
 #    'calls .dialog with default title': ->
 #      alert()
 #      assert.match(@dialogSpy.args[0][0], title: 'Alert')
@@ -56,10 +56,10 @@ describe 'Bootstrap.Dialogs', ->
 #      $btn = alert().$el.find('button.btn')
 #      assert.className($btn[0], 'btn-primary')
 #
-#    'danger options gives "Ok" button btn-danger class': ->
-#      $btn = alert(danger: true).$el.find('button.btn')
-#      assert.className($btn[0], 'btn-danger')
-#
+    it 'danger options gives "Ok" button btn-danger class', ->
+      $btn = alert(danger: true).$el.find('button.btn')
+      $btn.should.have.class('btn-danger')
+
 #    'clicking button triggers .resolve': ->
 #      promise = alert()
 #      spy = @spy(promise, 'resolve')
