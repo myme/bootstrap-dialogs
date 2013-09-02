@@ -12,8 +12,7 @@ triggerKey = (which, el='body') ->
   event.which = which
   $(el).trigger(event)
 
-
-describe 'Bootstrap.Dialogs', sinon.test ->
+describe 'Bootstrap.Dialogs', ->
 
   beforeEach ->
     @dialogSpy = sinon.stub Bootstrap.Dialogs, 'dialog', ->
