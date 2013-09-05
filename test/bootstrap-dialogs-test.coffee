@@ -47,21 +47,21 @@ buster.testCase 'Bootstrap.Dialogs',
     'returns same as .dialog': ->
       assert(@dialogSpy.returned(alert()))
 
-    'creates modal with one "Ok" button': ->
+    'creates modal with one "OK" button': ->
       $btn = alert().$el.find('button.btn')
       assert.equals($btn.length, 1)
-      assert.equals($btn.text(), 'Ok')
+      assert.equals($btn.text(), 'OK')
 
     'can set text of "OK" button': ->
       $btn = alert(ok: 'Dismiss').$el.find('button.btn')
       assert.equals($btn.length, 1)
       assert.equals($btn.text(), 'Dismiss')
 
-    '"Ok" button has class btn-primary': ->
+    '"OK" button has class btn-primary': ->
       $btn = alert().$el.find('button.btn')
       assert.className($btn[0], 'btn-primary')
 
-    'danger options gives "Ok" button btn-danger class': ->
+    'danger options gives "OK" button btn-danger class': ->
       $btn = alert(danger: true).$el.find('button.btn')
       assert.className($btn[0], 'btn-danger')
 
@@ -105,24 +105,24 @@ buster.testCase 'Bootstrap.Dialogs',
     'returns same as .dialog': ->
       assert(@dialogSpy.returned(confirm()))
 
-    'creates modal with "Cancel" and "Ok" button': ->
+    'creates modal with "Cancel" and "OK" button': ->
       $buttons = confirm().$el.find('button.btn')
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Cancel')
-      assert.match($buttons.text(), 'Ok')
+      assert.match($buttons.text(), 'OK')
 
-    'can set text of "Cancel" and "Ok" button': ->
+    'can set text of "Cancel" and "OK" button': ->
       $buttons = confirm(ok: 'Confirm', cancel: 'Abort').$el.find('button.btn')
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Abort')
       assert.match($buttons.text(), 'Confirm')
 
-    '"Ok" button has class btn-primary': ->
-      $btn = confirm().$el.find('button.btn:contains("Ok")')
+    '"OK" button has class btn-primary': ->
+      $btn = confirm().$el.find('button.btn:contains("OK")')
       assert.className($btn[0], 'btn-primary')
 
-    'danger options gives "Ok" button btn-danger class': ->
-      $btn = confirm(danger: true).$el.find('button.btn:contains("Ok")')
+    'danger options gives "OK" button btn-danger class': ->
+      $btn = confirm(danger: true).$el.find('button.btn:contains("OK")')
       assert.className($btn[0], 'btn-danger')
 
     'pressing Return does not do anything by default': ->
@@ -137,10 +137,10 @@ buster.testCase 'Bootstrap.Dialogs',
       triggerKey(RETURN)
       assert.calledOnce(spy)
 
-    'clicking "Ok" button triggers .resolve': ->
+    'clicking "OK" button triggers .resolve': ->
       promise = confirm()
       spy = @spy(promise, 'resolve')
-      promise.$el.find('button:contains("Ok")').click()
+      promise.$el.find('button:contains("OK")').click()
       assert.calledOnce(spy)
 
     'clicking "Cancel" button triggers .reject': ->
@@ -187,16 +187,16 @@ buster.testCase 'Bootstrap.Dialogs',
       $el = dialog(
         title: 'Title'
         body: 'Body'
-        buttons: [ 'Cancel', 'Ok' ]
+        buttons: [ 'Cancel', 'OK' ]
       ).$el
       $buttons = $el.find('button.btn')
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Cancel')
-      assert.match($buttons.text(), 'Ok')
+      assert.match($buttons.text(), 'OK')
 
     'adds handlers to buttons': ->
       spy = @spy()
-      dialog(title: 'Title', body: 'Body', buttons: [[ 'Ok', spy ]])
+      dialog(title: 'Title', body: 'Body', buttons: [[ 'OK', spy ]])
         .$el
         .find('button.btn')
         .click()
@@ -204,19 +204,19 @@ buster.testCase 'Bootstrap.Dialogs',
 
     'buttons can be DOM elements': ->
       $el = dialog(title: 'Title', body: 'Body', buttons: [
-        $('<button class="btn">').html('Ok')[0]
+        $('<button class="btn">').html('OK')[0]
       ]).$el
       $buttons = $el.find('button.btn')
       assert.equals($buttons.length, 1)
-      assert.equals($buttons.text(), 'Ok')
+      assert.equals($buttons.text(), 'OK')
 
     'buttons can be jQuery object': ->
       $el = dialog(title: 'Title', body: 'Body', buttons: [
-        $('<button class="btn">').html('Ok')
+        $('<button class="btn">').html('OK')
       ]).$el
       $buttons = $el.find('button.btn')
       assert.equals($buttons.length, 1)
-      assert.equals($buttons.text(), 'Ok')
+      assert.equals($buttons.text(), 'OK')
 
     'adds body to modal element': ->
       assert.match(
@@ -316,36 +316,36 @@ buster.testCase 'Bootstrap.Dialogs',
     'returns same as .dialog': ->
       assert(@dialogSpy.returned(prompt()))
 
-    'creates modal with "Cancel" and "Ok" buttons': ->
+    'creates modal with "Cancel" and "OK" buttons': ->
       $buttons = prompt().$el.find('button.btn')
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Cancel')
-      assert.match($buttons.text(), 'Ok')
+      assert.match($buttons.text(), 'OK')
 
-    'can set text of "Cancel" and "Ok" button': ->
+    'can set text of "Cancel" and "OK" button': ->
       $buttons = prompt(ok: 'Submit', cancel: 'Abort').$el.find('button.btn')
       assert.equals($buttons.length, 2)
       assert.match($buttons.text(), 'Abort')
       assert.match($buttons.text(), 'Submit')
 
-    '"Ok" button has class btn-primary': ->
-      $btn = prompt().$el.find('button.btn:contains("Ok")')
+    '"OK" button has class btn-primary': ->
+      $btn = prompt().$el.find('button.btn:contains("OK")')
       assert.className($btn[0], 'btn-primary')
 
-    'danger options gives "Ok" button btn-danger class': ->
-      $btn = prompt(danger: true).$el.find('button.btn:contains("Ok")')
+    'danger options gives "OK" button btn-danger class': ->
+      $btn = prompt(danger: true).$el.find('button.btn:contains("OK")')
       assert.className($btn[0], 'btn-danger')
 
     'creates modal input field': ->
       $input = prompt().$el.find('input')
       assert.equals($input.length, 1)
 
-    'clicking "Ok" button triggers .resolve with input value': ->
+    'clicking "OK" button triggers .resolve with input value': ->
       promise = prompt()
       spy = @spy(promise, 'resolve')
       $el = promise.$el
       $el.find('input').val('Foobar')
-      $el.find('button:contains("Ok")').click()
+      $el.find('button:contains("OK")').click()
       assert.calledOnceWith(spy, 'Foobar')
 
     'clicking "Cancel" button triggers .reject': ->

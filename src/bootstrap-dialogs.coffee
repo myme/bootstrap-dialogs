@@ -32,7 +32,7 @@ exports = Bootstrap.Dialogs =
   alert: (options={}) ->
     defaultOptions =
       title: 'Alert'
-      ok: 'Ok'
+      ok: 'OK'
       lock: true
       danger: false
     options = $.extend(defaultOptions, options)
@@ -54,7 +54,7 @@ exports = Bootstrap.Dialogs =
   confirm: (options={}) ->
     defaultOptions =
       title: 'Please confirm'
-      ok: 'Ok'
+      ok: 'OK'
       cancel: 'Cancel'
       danger: false
     options = $.extend(defaultOptions, options)
@@ -130,7 +130,7 @@ exports = Bootstrap.Dialogs =
     defaultOptions =
       title: 'Please enter a value'
       body: ''
-      ok: 'Ok'
+      ok: 'OK'
       cancel: 'Cancel'
     options = $.extend(defaultOptions, options)
 
