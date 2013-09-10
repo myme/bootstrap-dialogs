@@ -11,7 +11,6 @@
 
   mkbutton = function(text, btnClass) {
     var $btn;
-
     $btn = $('<button type="button" class="btn">').html(text);
     if (btnClass) {
       $btn.addClass("btn-" + btnClass);
@@ -21,7 +20,6 @@
 
   normalizeButtons = function(buttons) {
     var $btn, button, handler, _i, _len, _results;
-
     _results = [];
     for (_i = 0, _len = buttons.length; _i < _len; _i++) {
       button = buttons[_i];
@@ -45,13 +43,12 @@
   exports = Bootstrap.Dialogs = {
     alert: function(options) {
       var defaultOptions, okClass, promise, returnHandler;
-
       if (options == null) {
         options = {};
       }
       defaultOptions = {
         title: 'Alert',
-        ok: 'Ok',
+        ok: 'OK',
         lock: true,
         danger: false
       };
@@ -81,13 +78,12 @@
     },
     confirm: function(options) {
       var defaultOptions, okClass, promise, returnHandler;
-
       if (options == null) {
         options = {};
       }
       defaultOptions = {
         title: 'Please confirm',
-        ok: 'Ok',
+        ok: 'OK',
         cancel: 'Cancel',
         danger: false
       };
@@ -123,7 +119,6 @@
     },
     dialog: function(options) {
       var $closeButton, $el, body, buttons, escHandler, promise, title, titleEls;
-
       if (options == null) {
         options = {};
       }
@@ -175,14 +170,13 @@
     },
     prompt: function(options) {
       var $input, defaultOptions, keyup, okClass, promise, reject, resolve;
-
       if (options == null) {
         options = {};
       }
       defaultOptions = {
         title: 'Please enter a value',
         body: '',
-        ok: 'Ok',
+        ok: 'OK',
         cancel: 'Cancel'
       };
       options = $.extend(defaultOptions, options);

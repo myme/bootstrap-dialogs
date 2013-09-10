@@ -86,6 +86,11 @@ In order to upgrade the distribution files bundled in the repo, run `npm run-scr
 Release notes
 -------------
 
+### v0.2.6
+
+ * Upgrade jQuery dependency to 1.10.2.
+ * Capitalize "OK" texts.
+
 ### v0.2.5
 
  * Make Bower dependencies looser.
