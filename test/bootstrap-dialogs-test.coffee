@@ -294,6 +294,20 @@ buster.testCase 'Bootstrap.Dialogs',
       triggerKey(ESC)
       refute.called(spy)
 
+    'calls disableScrolling when dialog opens': ->
+      spy = @spy(Bootstrap.Dialogs, 'disableScrolling')
+      dialog()
+      assert.calledOnce(spy)
+
+    'calls enableScrolling when dialog closes': ->
+      spy = @spy(Bootstrap.Dialogs, 'enableScrolling')
+
+      dialog().resolve()
+      assert.calledOnce(spy)
+
+      dialog().reject()
+      assert.calledTwice(spy)
+
   'prompt':
 
     'is a function': ->
@@ -378,3 +392,30 @@ buster.testCase 'Bootstrap.Dialogs',
       spy = @spy($.fn, 'focus')
       assert.calledOn(spy, prompt().$input)
       assert.callOrder(@dialogSpy, spy)
+
+  'scrolling':
+
+    setUp: ->
+      $('html').css('height': '200%')
+      $(window.document).scrollTop(20)
+      assert.equals($('html').css('position'), 'static')
+      assert.equals($('html').css('top'), 'auto')
+      assert.equals($(window.document).scrollTop(), 20)
+
+    tearDown: ->
+      Bootstrap.Dialogs.enableScrolling()
+
+    'disableScrolling sets <html> styling': ->
+      Bootstrap.Dialogs.disableScrolling()
+
+      assert.equals($('html').css('position'), 'fixed')
+      assert.equals($('html').css('top'), '-20px')
+      assert.equals($(window.document).scrollTop(), 0)
+
+    'enableScrolling removes <html> styling': ->
+      Bootstrap.Dialogs.disableScrolling()
+      Bootstrap.Dialogs.enableScrolling()
+
+      assert.equals($('html').css('position'), 'static')
+      assert.equals($('html').css('top'), 'auto')
+      assert.equals($(window.document).scrollTop(), 20)

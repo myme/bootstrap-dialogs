@@ -113,6 +113,7 @@ exports = Bootstrap.Dialogs =
       escHandler = (e) -> promise.reject() if e.which is ESC
 
     promise.always ->
+      exports.enableScrolling()
       $('body').off('keyup', escHandler) if escHandler
       $el.modal('hide')
       $el.remove()
@@ -124,7 +125,23 @@ exports = Bootstrap.Dialogs =
     else
       $el.modal(keyboard: false)
 
+    exports.disableScrolling()
     promise
+
+  disableScrolling: ->
+    $('html').css
+      position: 'fixed'
+      top: - Math.abs($(window.document).scrollTop())
+      width: '100%'
+    undefined
+
+  enableScrolling: ->
+    offset = Math.abs(parseInt($('html').css('top')))
+    $('html').css
+      position: 'static'
+      top: 'auto'
+    $(window.document).scrollTop(offset)
+    undefined
 
   prompt: (options={}) ->
     defaultOptions =
