@@ -393,7 +393,7 @@ buster.testCase 'Bootstrap.Dialogs',
       assert.calledOn(spy, prompt().$input)
       assert.callOrder(@dialogSpy, spy)
 
-  'scrolling':
+  '// scrolling':
 
     setUp: ->
       $('html').css('height': '200%')
