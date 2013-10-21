@@ -21,10 +21,10 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "bower": "1.2.6",
-    "buster": "~0.6.12",
+    "bower": ">=1.2.7",
+    "buster": ">=0.7.7",
     "grunt": "~0.4.1",
-    "grunt-buster": "~0.1.2",
+    "grunt-buster": ">=0.2.2",
     "grunt-cli": "~0.1.6",
     "grunt-coffeelint": "0.0.6",
     "grunt-contrib-coffee": "~0.6.4",

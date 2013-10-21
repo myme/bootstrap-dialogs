@@ -4,7 +4,8 @@ module.exports = (grunt) ->
   tests = 'test/**/*.coffee'
 
   grunt.initConfig
-    buster: {} # Defaults
+    buster:
+      all: {} # Defaults
 
     coffee:
       dist:
