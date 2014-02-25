@@ -147,6 +147,7 @@
         };
       }
       promise.always(function() {
+        exports.enableScrolling();
         if (escHandler) {
           $('body').off('keyup', escHandler);
         }
@@ -166,7 +167,26 @@
           keyboard: false
         });
       }
+      exports.disableScrolling();
       return promise;
+    },
+    disableScrolling: function() {
+      $('html').css({
+        position: 'fixed',
+        top: -Math.abs($(window.document).scrollTop()),
+        width: '100%'
+      });
+      return void 0;
+    },
+    enableScrolling: function() {
+      var offset;
+      offset = Math.abs(parseInt($('html').css('top')));
+      $('html').css({
+        position: 'static',
+        top: 'auto'
+      });
+      $(window.document).scrollTop(offset);
+      return void 0;
     },
     prompt: function(options) {
       var $input, defaultOptions, keyup, okClass, promise, reject, resolve;

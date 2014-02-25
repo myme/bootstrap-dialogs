@@ -86,7 +86,7 @@ In order to upgrade the distribution files bundled in the repo, run `npm run-scr
 Release notes
 -------------
 
-### v0.2.7 (Unreleased)
+### v0.2.7 (2014-02-25)
 
  * Disable scrolling of body behind a dialog.
 
