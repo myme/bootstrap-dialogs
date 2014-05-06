@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-dialogs",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Twitter Bootstrap Modal Dialogs",
   "main": "index.js",
   "scripts": {

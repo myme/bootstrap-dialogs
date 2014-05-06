@@ -86,6 +86,10 @@ In order to upgrade the distribution files bundled in the repo, run `npm run-scr
 Release notes
 -------------
 
+### v0.2.8 (2014-05-06)
+
+ * Fix leak of click handlers between buttons.
+
 ### v0.2.7 (2014-02-25)
 
  * Disable scrolling of body behind a dialog.

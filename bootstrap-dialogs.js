@@ -23,6 +23,7 @@
     _results = [];
     for (_i = 0, _len = buttons.length; _i < _len; _i++) {
       button = buttons[_i];
+      handler = null;
       if (button instanceof Array) {
         handler = button[1];
         button = button[0];
