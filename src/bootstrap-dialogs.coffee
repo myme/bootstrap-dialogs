@@ -14,6 +14,8 @@ mkbutton = (text, btnClass) ->
 
 normalizeButtons = (buttons) ->
   for button in buttons
+    handler = null
+
     if button instanceof Array
       handler = button[1]
       button = button[0]

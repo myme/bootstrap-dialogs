@@ -202,6 +202,14 @@ buster.testCase 'Bootstrap.Dialogs',
         .click()
       assert.calledOnce(spy)
 
+    'does not leak handlers between buttons': ->
+      spy = @spy()
+      dialog(buttons: [
+        ['OK', spy]
+        $('<a href="#">')[0]
+      ]).$el.find('a').click()
+      refute.called(spy)
+
     'buttons can be DOM elements': ->
       $el = dialog(title: 'Title', body: 'Body', buttons: [
         $('<button class="btn">').html('OK')[0]
