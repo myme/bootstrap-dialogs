@@ -1,4 +1,3 @@
-$ = this.jQuery
 Bootstrap = this.Bootstrap or= {}
 
 
@@ -29,7 +28,7 @@ normalizeButtons = (buttons) ->
     $btn
 
 
-exports = Bootstrap.Dialogs =
+dialogs =
 
   alert: (options={}) ->
     defaultOptions =
@@ -40,7 +39,7 @@ exports = Bootstrap.Dialogs =
     options = $.extend(defaultOptions, options)
 
     okClass = if options.danger then 'danger' else 'primary'
-    promise = exports.dialog
+    promise = dialogs.dialog
       title: options.title
       body: options.body
       lock: options.lock
@@ -63,7 +62,7 @@ exports = Bootstrap.Dialogs =
 
     okClass = if options.danger then 'danger' else 'primary'
 
-    promise = exports.dialog
+    promise = dialogs.dialog
       title: options.title
       body: options.body
       buttons: [
@@ -115,7 +114,7 @@ exports = Bootstrap.Dialogs =
       escHandler = (e) -> promise.reject() if e.which is ESC
 
     promise.always ->
-      exports.enableScrolling()
+      dialogs.enableScrolling()
       $('body').off('keyup', escHandler) if escHandler
       $el.modal('hide')
       $el.remove()
@@ -127,7 +126,7 @@ exports = Bootstrap.Dialogs =
     else
       $el.modal(keyboard: false)
 
-    exports.disableScrolling()
+    dialogs.disableScrolling()
     promise
 
   disableScrolling: ->
@@ -161,7 +160,7 @@ exports = Bootstrap.Dialogs =
 
     $input = $('<input type="text">')
 
-    promise = exports.dialog
+    promise = dialogs.dialog
       title: options.title
       body: [ options.body, $input ]
       buttons: [
@@ -176,3 +175,8 @@ exports = Bootstrap.Dialogs =
     $input.focus()
     promise.$input = $input
     promise
+
+if module?
+  module.exports = dialogs
+else
+  Bootstrap.Dialogs = dialogs

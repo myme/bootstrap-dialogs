@@ -2,7 +2,7 @@
   "name": "bootstrap-dialogs",
   "version": "0.2.8",
   "description": "Twitter Bootstrap Modal Dialogs",
-  "main": "index.js",
+  "main": "bootstrap-dialogs.js",
   "scripts": {
     "dist": "grunt dist",
     "prepublish": "bower install",
