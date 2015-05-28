@@ -1,7 +1,5 @@
 (function() {
-  var $, Bootstrap, ESC, RETURN, exports, mkbutton, normalizeButtons;
-
-  $ = this.jQuery;
+  var Bootstrap, ESC, RETURN, dialogs, mkbutton, normalizeButtons;
 
   Bootstrap = this.Bootstrap || (this.Bootstrap = {});
 
@@ -41,7 +39,7 @@
     return _results;
   };
 
-  exports = Bootstrap.Dialogs = {
+  dialogs = {
     alert: function(options) {
       var defaultOptions, okClass, promise, returnHandler;
       if (options == null) {
@@ -55,7 +53,7 @@
       };
       options = $.extend(defaultOptions, options);
       okClass = options.danger ? 'danger' : 'primary';
-      promise = exports.dialog({
+      promise = dialogs.dialog({
         title: options.title,
         body: options.body,
         lock: options.lock,
@@ -90,7 +88,7 @@
       };
       options = $.extend(defaultOptions, options);
       okClass = options.danger ? 'danger' : 'primary';
-      promise = exports.dialog({
+      promise = dialogs.dialog({
         title: options.title,
         body: options.body,
         buttons: [
@@ -148,7 +146,7 @@
         };
       }
       promise.always(function() {
-        exports.enableScrolling();
+        dialogs.enableScrolling();
         if (escHandler) {
           $('body').off('keyup', escHandler);
         }
@@ -168,7 +166,7 @@
           keyboard: false
         });
       }
-      exports.disableScrolling();
+      dialogs.disableScrolling();
       return promise;
     },
     disableScrolling: function() {
@@ -214,7 +212,7 @@
         }
       };
       $input = $('<input type="text">');
-      promise = exports.dialog({
+      promise = dialogs.dialog({
         title: options.title,
         body: [options.body, $input],
         buttons: [[options.cancel, reject], [mkbutton(options.ok, okClass), resolve]]
@@ -228,5 +226,11 @@
       return promise;
     }
   };
+
+  if (typeof module !== "undefined" && module !== null) {
+    module.exports = dialogs;
+  } else {
+    Bootstrap.Dialogs = dialogs;
+  }
 
 }).call(this);
