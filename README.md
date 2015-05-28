@@ -83,6 +83,14 @@ Upgrade the distribution files
 
 In order to upgrade the distribution files bundled in the repo, run `npm run-script dist`.
 
+Perform release
+---------------
+
+  * Update `Release notes`
+  * Bump `package.json` and `bower.json` version numbers
+  * Run `npm run dist` to update all distribution sources
+  * `git tag -a <tag>` with the appropriate version number</tag>
+
 Release notes
 -------------
 
