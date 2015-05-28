@@ -94,6 +94,10 @@ Perform release
 Release notes
 -------------
 
+### v0.3.0 (2015-05-28)
+
+ * Add very basic CommonJS support.
+
 ### v0.2.8 (2014-05-06)
 
  * Fix leak of click handlers between buttons.
