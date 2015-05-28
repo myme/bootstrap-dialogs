@@ -1,7 +1,9 @@
 Bootstrap Dialogs
 =================
 
-[![Build Status](https://travis-ci.org/myme/bootstrap-dialogs.png?branch=master)](https://travis-ci.org/myme/bootstrap-dialogs)
+[![Latest npm version](https://img.shields.io/npm/v/bootstrap-dialogs.svg?style=flat)](https://www.npmjs.org/package/bootstrap-dialogs)
+[![Number of npm downloads](https://img.shields.io/npm/dm/bootstrap-dialogs.svg?style=flat)](https://www.npmjs.org/package/bootstrap-dialogs)
+[![Build Status](https://img.shields.io/travis/myme/bootstrap-dialogs.svg?style=flat)](https://travis-ci.org/myme/bootstrap-dialogs)
 
 Description
 -----------
