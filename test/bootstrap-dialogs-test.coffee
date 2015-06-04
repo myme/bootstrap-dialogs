@@ -1,5 +1,5 @@
-$ = this.jQuery
-Bootstrap = this.Bootstrap
+$ = @jQuery
+Bootstrap = @Bootstrap
 {alert, confirm, dialog, prompt} = Bootstrap.Dialogs
 
 

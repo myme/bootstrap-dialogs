@@ -1,4 +1,13 @@
-Bootstrap = this.Bootstrap or= {}
+if require?
+  $ = require('jquery')
+  Bootstrap = require('bootstrap')
+else
+  $ = @jQuery
+  Bootstrap = @Bootstrap or= {}
+
+if not module?
+  module = exports: exports = {}
+  Bootstrap.Dialogs = exports
 
 
 RETURN = 13
@@ -28,155 +37,153 @@ normalizeButtons = (buttons) ->
     $btn
 
 
-dialogs =
+exports.alert = (options={}) ->
+  defaultOptions =
+    title: 'Alert'
+    ok: 'OK'
+    lock: true
+    danger: false
+  options = $.extend(defaultOptions, options)
 
-  alert: (options={}) ->
-    defaultOptions =
-      title: 'Alert'
-      ok: 'OK'
-      lock: true
-      danger: false
-    options = $.extend(defaultOptions, options)
+  okClass = if options.danger then 'danger' else 'primary'
+  promise = exports.dialog
+    title: options.title
+    body: options.body
+    lock: options.lock
+    buttons: [
+      [ mkbutton(options.ok, okClass), -> promise.resolve() ]
+    ]
 
-    okClass = if options.danger then 'danger' else 'primary'
-    promise = dialogs.dialog
-      title: options.title
-      body: options.body
-      lock: options.lock
-      buttons: [
-        [ mkbutton(options.ok, okClass), -> promise.resolve() ]
-      ]
+  returnHandler = (e) -> promise.resolve() if e.which is RETURN
+  $('body').on('keyup', returnHandler)
+  promise.always ->
+    $('body').off('keyup', returnHandler)
 
+
+exports.confirm = (options={}) ->
+  defaultOptions =
+    title: 'Please confirm'
+    ok: 'OK'
+    cancel: 'Cancel'
+    danger: false
+  options = $.extend(defaultOptions, options)
+
+  okClass = if options.danger then 'danger' else 'primary'
+
+  promise = exports.dialog
+    title: options.title
+    body: options.body
+    buttons: [
+      [ options.cancel, -> promise.reject() ]
+      [ mkbutton(options.ok, okClass), -> promise.resolve() ]
+    ]
+
+  if options.return
     returnHandler = (e) -> promise.resolve() if e.which is RETURN
     $('body').on('keyup', returnHandler)
     promise.always ->
       $('body').off('keyup', returnHandler)
 
-  confirm: (options={}) ->
-    defaultOptions =
-      title: 'Please confirm'
-      ok: 'OK'
-      cancel: 'Cancel'
-      danger: false
-    options = $.extend(defaultOptions, options)
+  promise
 
-    okClass = if options.danger then 'danger' else 'primary'
 
-    promise = dialogs.dialog
-      title: options.title
-      body: options.body
-      buttons: [
-        [ options.cancel, -> promise.reject() ]
-        [ mkbutton(options.ok, okClass), -> promise.resolve() ]
-      ]
+exports.dialog = (options={}) ->
+  title = options.title
+  body = options.body
+  buttons = options.buttons or []
 
-    if options.return
-      returnHandler = (e) -> promise.resolve() if e.which is RETURN
-      $('body').on('keyup', returnHandler)
-      promise.always ->
-        $('body').off('keyup', returnHandler)
+  titleEls = [ $('<h3>').html(title) ]
+  if not options.lock
+    $closeButton = $('''
+      <button type="button" class="close" data-dismiss="modal"
+        aria-hidden="true">&times;</button>
+    ''')
+    titleEls.unshift($closeButton)
 
-    promise
-
-  dialog: (options={}) ->
-    title = options.title
-    body = options.body
-    buttons = options.buttons or []
-
-    titleEls = [ $('<h3>').html(title) ]
-    if not options.lock
-      $closeButton = $('''
-        <button type="button" class="close" data-dismiss="modal"
-          aria-hidden="true">&times;</button>
-      ''')
-      titleEls.unshift($closeButton)
-
-    $el = $('<div class="modal hide fade">').html([
-      $('<div class="modal-header">').html(titleEls)
-      if body
-        $('<div class="modal-body">').html(body)
-      else
-        ''
-      $('<div class="modal-footer">').html(
-        normalizeButtons(buttons)
-      )
-    ])
-
-    promise = $.Deferred()
-    promise.el = $el[0]
-    promise.$el = $el
-
-    $el.on 'hidden', ->
-      if promise.state() is 'pending'
-        promise.reject()
-
-    if not options.lock
-      escHandler = (e) -> promise.reject() if e.which is ESC
-
-    promise.always ->
-      dialogs.enableScrolling()
-      $('body').off('keyup', escHandler) if escHandler
-      $el.modal('hide')
-      $el.remove()
-
-    $('body').on('keyup', escHandler) if escHandler
-
-    if options.lock
-      $el.modal(backdrop: 'static', keyboard: false)
+  $el = $('<div class="modal hide fade">').html([
+    $('<div class="modal-header">').html(titleEls)
+    if body
+      $('<div class="modal-body">').html(body)
     else
-      $el.modal(keyboard: false)
+      ''
+    $('<div class="modal-footer">').html(
+      normalizeButtons(buttons)
+    )
+  ])
 
-    dialogs.disableScrolling()
-    promise
+  promise = $.Deferred()
+  promise.el = $el[0]
+  promise.$el = $el
 
-  disableScrolling: ->
-    $('html').css
-      position: 'fixed'
-      top: - Math.abs($(window.document).scrollTop())
-      width: '100%'
-    undefined
+  $el.on 'hidden', ->
+    if promise.state() is 'pending'
+      promise.reject()
 
-  enableScrolling: ->
-    offset = Math.abs(parseInt($('html').css('top')))
-    $('html').css
-      position: 'static'
-      top: 'auto'
-    $(window.document).scrollTop(offset)
-    undefined
+  if not options.lock
+    escHandler = (e) -> promise.reject() if e.which is ESC
 
-  prompt: (options={}) ->
-    defaultOptions =
-      title: 'Please enter a value'
-      body: ''
-      ok: 'OK'
-      cancel: 'Cancel'
-    options = $.extend(defaultOptions, options)
+  promise.always ->
+    exports.enableScrolling()
+    $('body').off('keyup', escHandler) if escHandler
+    $el.modal('hide')
+    $el.remove()
 
-    okClass = if options.danger then 'danger' else 'primary'
+  $('body').on('keyup', escHandler) if escHandler
 
-    resolve = -> promise.resolve($input.val())
-    reject = -> promise.reject()
-    keyup = (e) -> resolve() if e.which is RETURN
+  if options.lock
+    $el.modal(backdrop: 'static', keyboard: false)
+  else
+    $el.modal(keyboard: false)
 
-    $input = $('<input type="text">')
+  exports.disableScrolling()
+  promise
 
-    promise = dialogs.dialog
-      title: options.title
-      body: [ options.body, $input ]
-      buttons: [
-        [ options.cancel, reject ]
-        [ mkbutton(options.ok, okClass), resolve ]
-      ]
 
-    $('body').on('keyup', keyup)
-    promise.always ->
-      $('body').off('keyup', keyup)
+exports.disableScrolling = ->
+  $('html').css
+    position: 'fixed'
+    top: - Math.abs($(window.document).scrollTop())
+    width: '100%'
+  undefined
 
-    $input.focus()
-    promise.$input = $input
-    promise
 
-if module?
-  module.exports = dialogs
-else
-  Bootstrap.Dialogs = dialogs
+exports.enableScrolling = ->
+  offset = Math.abs(parseInt($('html').css('top')))
+  $('html').css
+    position: 'static'
+    top: 'auto'
+  $(window.document).scrollTop(offset)
+  undefined
+
+
+exports.prompt = (options={}) ->
+  defaultOptions =
+    title: 'Please enter a value'
+    body: ''
+    ok: 'OK'
+    cancel: 'Cancel'
+  options = $.extend(defaultOptions, options)
+
+  okClass = if options.danger then 'danger' else 'primary'
+
+  resolve = -> promise.resolve($input.val())
+  reject = -> promise.reject()
+  keyup = (e) -> resolve() if e.which is RETURN
+
+  $input = $('<input type="text">')
+
+  promise = exports.dialog
+    title: options.title
+    body: [ options.body, $input ]
+    buttons: [
+      [ options.cancel, reject ]
+      [ mkbutton(options.ok, okClass), resolve ]
+    ]
+
+  $('body').on('keyup', keyup)
+  promise.always ->
+    $('body').off('keyup', keyup)
+
+  $input.focus()
+  promise.$input = $input
+  promise
