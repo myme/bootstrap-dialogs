@@ -96,6 +96,10 @@ Perform release
 Release notes
 -------------
 
+### v0.3.1 (2015-06-04)
+
+ * Support require of jQuery and bootstrap for better browserify integration.
+
 ### v0.3.0 (2015-05-28)
 
  * Add very basic CommonJS support.
